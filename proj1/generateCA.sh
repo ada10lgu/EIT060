@@ -3,8 +3,9 @@
 KEY="key.pem";
 CERT="cert.pem";
 CONFIG="config";
-NAMES="cn=David(fys11dno)/Hannes(cek11hfo)/Lars(ada10lgu)/Hanna()";
-CLIENTKEYSTORENAME="clientkeystore"
+NAMES="cn=\"David Norrestam(fys11dno)/Hannes Fornell(cek11hfo)/Lars Gustafsson(ada10lgu)/Hanna Andreason()\"";
+KSNAME="clientkeystore"
+TSNAME="clienttruststore"
 
 #Generate Certificate
 function generateCA509 {
@@ -14,7 +15,8 @@ function generateCA509 {
 
 # Generate trustStore and import CA-certificate
 function trustStore {
-	keytool -import -v -trustcacerts -file $CERT -keystore clienttruststore -keypass password
+	rm $TSNAME
+	keytool -import -v -trustcacerts -file $CERT -keystore $TSNAME -keypass password
 }
 
 function eit060_all {
@@ -24,6 +26,6 @@ function eit060_all {
 }
 
 function keyStore {
-	rm $CLIENTKEYSTORENAME
-	keytool -genkeypair -keystore $CLIENTKEYSTORENAME -storepass password -dname $NAMES
+	rm $KSNAME
+	keytool -genkeypair -keystore $KSNAME -storepass password -dname $NAMES
 }
