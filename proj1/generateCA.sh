@@ -3,9 +3,9 @@
 KEY="key.pem";
 CERT="cert.pem";
 CONFIG="config";
-NAMES="cn=\"David Norrestam(fys11dno)/Hannes Fornell(cek11hfo)/Lars Gustafsson(ada10lgu)/Hanna Andreason()\"";
-KSNAME="clientkeystore"
-TSNAME="clienttruststore"
+NAMES="cn=\"DavidNorrestam(fys11dno)/HannesFornell(cek11hfo)/LarsGustafsson(ada10lgu)/HannaAndreason(bte12han)\"";
+KSNAME="clientkeystore";
+TSNAME="clienttruststore";
 
 #Generate Certificate
 function generateCA509 {
