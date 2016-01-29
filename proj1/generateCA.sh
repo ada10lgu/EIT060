@@ -2,10 +2,11 @@
 
 KEY="key.pem";
 CERT="cert.pem";
+CONFIG="config";
 
 #Generate Certificate
 function generateCA509 {
-	openssl req -x509 -newkey rsa:1024 -keyout $KEY -out $CERT	
+	openssl req -x509 -newkey rsa:1024 -keyout $KEY -out $CERT -config $CONFIG	
 	openssl x509 -in $CERT -noout -text;
 }
 

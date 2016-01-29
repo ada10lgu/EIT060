@@ -1,0 +1,19 @@
+RANDFILE               = $ENV::HOME/.rnd
+
+ [ req ]
+ distinguished_name     = req_distinguished_name
+ attributes             = req_attributes
+ prompt                 = no
+ output_password        = password
+
+ [ req_distinguished_name ]
+ C                      = SV
+ ST                     = Skania
+ L                      = Lund
+ O                      = LTH
+ OU                     = EIT
+ CN                     = EIT060
+ emailAddress           = test@email.address
+
+ [ req_attributes ]
+ challengePassword              = password2
