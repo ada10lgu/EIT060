@@ -1,0 +1,21 @@
+ToDo:2 Project Instructions
+2.1 Certificates, keystores and truststores
+You first need to download and install OpenSSL and keytool. OpenSSL is included in most Linux
+distributions. If you use Windows, you can find it at [3].
+Read about certificates in the course book, and learn what keystores and truststores are (search
+online). Then perform the following steps.
+1. Create a X.509 CA certificate using OpenSSL. Set the commonName (CN) field of the certificate
+to CA for clarity. Make sure to save the private key of the CA in a file. Question A: What does
+the OpenSSL switch -CAcreateserial do?
+2. Use keytool to create a truststore that contains the CA certificate (and nothing else). Name the
+file clienttruststore (no file extension) and set the password to password.
+3. Use keytool to create an end-user keypair that is stored in a (client-side) keystore. Use your full
+names and STIL identities for the CN field for the certificate; X/X/X/X, where
+X = <FULL NAME> (<STIL-id>)
+for each respective group member. Name the file clientkeystore (no file extension) and set the
+password to password.
+4. Use keytool to create a Certificate Signing Request (CSR) for the keys created in the previous step.
+A CSR can be seen as a blueprint of a certificate that has not been signed yet.
+5. Use OpenSSL to let your CA (from step 1) sign the CSR.
+6. Import the certificate chain into your keystore. Note that you should import the CA certificate
+before you import the signed certificate.
