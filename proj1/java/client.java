@@ -21,7 +21,9 @@ public class client {
         for (int i = 0; i < args.length; i++) {
             System.out.println("args[" + i + "] = " + args[i]);
         }
-        if (args.length < 2) {
+	if (args.length == 0) {
+	    args = new String[] {"localhost","9876"};
+	} else if (args.length < 2) {
             System.out.println("USAGE: java client host port");
             System.exit(-1);
         }
@@ -65,7 +67,9 @@ public class client {
             SSLSession session = socket.getSession();
             X509Certificate cert = (X509Certificate)session.getPeerCertificateChain()[0];
             String subject = cert.getSubjectDN().getName();
-            System.out.println("certificate name (subject DN field) on certificate received from server:\n" + subject + "\n");
+	    String issuer = cert.getIssuerDN().getName();
+	    String serial = cert.getSerialNumber().toString();
+            System.out.printf("certificate name (subject DN field) on certificate received from server:%n%s%n%s%n%s%n",subject,issuer,serial	);
             System.out.println("socket after handshake:\n" + socket + "\n");
             System.out.println("secure connection established\n\n");
 
