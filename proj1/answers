@@ -3,6 +3,9 @@ B:
 C:
 Extensions informs a specific usage of a certificate. Some common extensions are AlternativeNames (the public key can be associated with other identities) and KeyUsage (limits the use of the keys). 
 D:
+It works!
+$cp clienttruststore servertruststore
+Since the client trusts itself the server will now trust it too. This won't work when you have multiple clientsm since the server will no longer trust the other clientsm unless the client we copied the truststore from trusted them all.
 E:
 You need to use the password of the truststore to be able to modify it.
 Since we only hasve one private key stored in the keystore the two passwords are used to lock the key and the store in a whole.
