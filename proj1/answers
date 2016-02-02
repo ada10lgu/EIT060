@@ -1,5 +1,7 @@
 A: The first time the CA will be used to sign a certificate you use -CAcreateserial option. A CA serial number file is created with this option. This option is only used the first time, following certificates are created with the -CAserial option. The serial number will be incremented each time a new certificate is created.
+B:
 C:
+Extensions informs a specific usage of a certificate. Some common extensions are AlternativeNames (the public key can be associated with other identities) and KeyUsage (limits the use of the keys). 
 D:
 E:
 You need to use the password of the truststore to be able to modify it.
@@ -7,8 +9,6 @@ Since we only hasve one private key stored in the keystore the two passwords are
 F:
 The text backwards
 
-
 G:
 It is used to request and requre client certificate auth. If you enable it and lack a suitable client certificate the connection will terminate. If you disable it...
-
 H:
