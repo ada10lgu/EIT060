@@ -3,6 +3,8 @@ A: The first time the CA will be used to sign a certificate you use -CAcreateser
 C:
 D:
 E:
+You need to use the password of the truststore to be able to modify it.
+The two passwords of the keystore is used....
 F:
 The text backwards
 G:
