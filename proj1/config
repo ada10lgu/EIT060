@@ -4,7 +4,7 @@ RANDFILE               = $ENV::HOME/.rnd
  distinguished_name     = req_distinguished_name
  attributes             = req_attributes
  prompt                 = no
- output_password        = password1
+ output_password        = password
 
  [ req_distinguished_name ]
  C                      = SV
@@ -16,4 +16,4 @@ RANDFILE               = $ENV::HOME/.rnd
  emailAddress           = test@email.address
 
  [ req_attributes ]
- challengePassword              = password2
+ challengePassword              = password
