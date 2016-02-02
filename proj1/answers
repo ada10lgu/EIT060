@@ -10,5 +10,5 @@ F:
 The text backwards
 
 G:
-It is used to request and requre client certificate auth. If you enable it and lack a suitable client certificate the connection will terminate. If you disable it...
+It forces the Client to send a certificate that is trused by the server. If it does not the connection will be terminated.
 H:
