@@ -22,9 +22,10 @@ public class server implements Runnable {
             X509Certificate cert = (X509Certificate)session.getPeerCertificateChain()[0];
             String subject = cert.getSubjectDN().getName();
 	    String issuer = cert.getIssuerDN().getName();
+	    String serial = cert.getSerialNumber().toString();
     	    numConnectedClients++;
             System.out.println("client connected");
-            System.out.printf("client name (cert subject DN field): %n%s%n%s%n",subject,issuer);
+            System.out.printf("client name (cert subject DN field): %n%s%n%s%n%s%n",subject,issuer,serial);
             System.out.println(numConnectedClients + " concurrent connection(s)\n");
 
             PrintWriter out = null;
@@ -59,6 +60,8 @@ public class server implements Runnable {
     public static void main(String args[]) {
         System.out.println("\nServer Started\n");
         int port = -1;
+	if (args.length == 0)
+	    args = new String[] {"9876"};
         if (args.length >= 1) {
             port = Integer.parseInt(args[0]);
         }
