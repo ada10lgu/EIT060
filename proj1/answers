@@ -1,5 +1,5 @@
-A:
-B:
+<<<<<<< Updated upstream
+A: The first time the CA will be used to sign a certificate you use -CAcreateserial option. A CA serial number file is created with this option. This option is only used the first time, following certificates are created with the -CAserial option. The serial number will be incremented each time a new certificate is created.
 C:
 D:
 E:
@@ -9,3 +9,5 @@ G:
 H:
 I:
 
+=======
+>>>>>>> Stashed changes
