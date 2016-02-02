@@ -6,6 +6,9 @@ E:
 F:
 The text backwards
 G:
+setNeedClientAuth is used to request and require client certificate authentication: the connection will terminate if no suitable client certificate is presented.
+
+
 H:
 I:
 
