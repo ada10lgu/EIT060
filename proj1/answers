@@ -4,7 +4,7 @@ C:
 D:
 E:
 You need to use the password of the truststore to be able to modify it.
-The two passwords of the keystore is used....
+Since we only hasve one private key stored in the keystore the two passwords are used to lock the key and the store in a whole.
 F:
 The text backwards
 G:
