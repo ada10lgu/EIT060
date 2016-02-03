@@ -1,0 +1,19 @@
+
+Server Started
+
+client connected
+client name (cert subject DN field): 
+CN=DavidNorrestam(fys11dno)/HannesFornell(cek11hfo)/LarsGustafsson(ada10lgu)/HannaAndreason(bte12han)
+EMAILADDRESS=test@email.address, CN=EIT060, OU=EIT, O=LTH, L=Lund, ST=Skania, C=SV
+16452909861669233052
+1 concurrent connection(s)
+
+received 'hej' from client
+sending 'jeh' to client...done
+
+received 'ja' from client
+sending 'aj' to client...done
+
+client disconnected
+0 concurrent connection(s)
+
