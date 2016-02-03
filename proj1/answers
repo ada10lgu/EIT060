@@ -1,17 +1,34 @@
-A: The first time the CA will be used to sign a certificate you use -CAcreateserial option. A CA serial number file is created with this option. This option is only used the first time, following certificates are created with the -CAserial option. The serial number will be incremented each time a new certificate is created.
-B:
-C:
+######################################################################
+# GROUP 38                                                           #
+# David Norrestam, Hannes Fornell, Hanna Andréasson, Lars Gustafsson #
+# 2016-02-03                                                         #
+# Answers for project 1                                              #
+######################################################################
+
+### Question A: 
+The first time the CA will be used to sign a certificate you use -CAcreateserial option. A CA serial number file is created with this option. This option is only used the first time, following certificates are created with the -CAserial option. The serial number will be incremented each time a new certificate is created.
+
+### Question B:
+By the use of the following command 
+$openssl x509 -req -in ca.certreq -CA cert.pem -CAkey key.pem -extfile v3.ext -CAcreateserial -out s.cert
+
+### Question C:
 Extensions informs a specific usage of a certificate. Some common extensions are AlternativeNames (the public key can be associated with other identities) and KeyUsage (limits the use of the keys). 
-D:
+
+### Question D:
 It works!
 $cp clienttruststore servertruststore
 Since the client trusts itself the server will now trust it too. This won't work when you have multiple clientsm since the server will no longer trust the other clientsm unless the client we copied the truststore from trusted them all.
-E:
+
+### Question E:
 You need to use the password of the truststore to be able to modify it.
 Since we only hasve one private key stored in the keystore the two passwords are used to lock the key and the store in a whole.
-F:
-The text backwards
 
-G:
+### Question F:
+The sent text backwards.
+
+### Question G:
 It forces the Client to send a certificate that is trused by the server. If it does not the connection will be terminated.
-H:
+
+### Question H:
+
