@@ -16,7 +16,7 @@ $openssl x509 -req -in ca.certreq -CA cert.pem -CAkey key.pem -extfile v3.ext -C
 Extensions informs a specific usage of a certificate. Some common extensions are AlternativeNames (the public key can be associated with other identities) and KeyUsage (limits the use of the keys). 
 
 ### Question D:
-It works!
+It works! 
 $cp clienttruststore servertruststore
 Since the client trusts itself the server will now trust it too. This won't work when you have multiple clientsm since the server will no longer trust the other clientsm unless the client we copied the truststore from trusted them all.
 
@@ -32,3 +32,47 @@ It forces the Client to send a certificate that is trused by the server. If it d
 
 ### Question H:
 
+
+@@@ SERVER:
+
+Server Started
+
+client connected
+client name (cert subject DN field): 
+CN=DavidNorrestam(fys11dno)/HannesFornell(cek11hfo)/LarsGustafsson(ada10lgu)/HannaAndreason(bte12han)
+EMAILADDRESS=test@email.address, CN=EIT060, OU=EIT, O=LTH, L=Lund, ST=Skania, C=SV
+16452909861669233052
+1 concurrent connection(s)
+
+received 'hej' from client
+sending 'jeh' to client...done
+
+received 'ja' from client
+sending 'aj' to client...done
+
+client disconnected
+0 concurrent connection(s)
+
+
+@@@ CLIENT:
+
+socket before handshake:
+7d417077[SSL_NULL_WITH_NULL_NULL: Socket[addr=localhost/127.0.0.1,port=9876,localport=60982]]
+
+certificate name (subject DN field) on certificate received from server:
+CN=MyServer
+EMAILADDRESS=test@email.address, CN=EIT060, OU=EIT, O=LTH, L=Lund, ST=Skania, C=SV
+16452909861669233053
+socket after handshake:
+7d417077[TLS_DHE_DSS_WITH_AES_128_CBC_SHA256: Socket[addr=localhost/127.0.0.1,port=9876,localport=60982]]
+
+secure connection established
+
+
+>sending 'hej' to server...done
+received 'jeh' from server
+
+>sending 'ja' to server...done
+received 'aj' from server
+
+>
