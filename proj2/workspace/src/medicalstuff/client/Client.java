@@ -1,7 +1,10 @@
 package medicalstuff.client;
 
+import medicalstuff.client.gui.ClientGUI;
+
 public class Client {
 	public static void main(String[] args) {
-		System.out.println("Best client ever, kinda...");
+		new ClientGUI();
+	
 	}
 }
