@@ -1,4 +1,4 @@
-package medicalstuff.server.model;
+package medicalstuff.server.model.other;
 
 public class Patient {
 	
