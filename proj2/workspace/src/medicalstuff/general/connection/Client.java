@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import medicalstuff.general.connection.data.RandomByteSet;
-import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.SuperPacket;
 import medicalstuff.general.connection.packets.factory.PacketFactory;
 import medicalstuff.general.connection.packets.factory.SuperFactory;

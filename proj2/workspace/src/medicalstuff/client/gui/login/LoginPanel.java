@@ -36,6 +36,8 @@ public class LoginPanel extends JPanel implements ActionListener {
 		JLabel l2 = new JLabel("Password");
 		user = new JTextField(12);
 		password = new JPasswordField(12);
+		user.setText("hanna");
+		password.setText("password");
 		user.addActionListener(this);
 		password.addActionListener(this);
 

@@ -38,7 +38,7 @@ public class SuperFactory implements PacketFactory {
 
 	private Packet createPacket(ByteArrayReader bar) {
 		byte type = bar.next();
-
+		System.out.println("Type: " + type);
 		byte dataSize = bar.next();
 		byte[] data = new byte[dataSize];
 		bar.fillArray(data);
@@ -50,7 +50,6 @@ public class SuperFactory implements PacketFactory {
 		}
 
 		Packet p = createPacket(type,data,packets);
-		
 		if (p == null)
 			throw new IllegalArgumentException(bar.toString());
 		return p;
@@ -88,7 +87,7 @@ public class SuperFactory implements PacketFactory {
 					break;
 			}
 		}
-		return null;
+		return p;
 	}
 
 	
