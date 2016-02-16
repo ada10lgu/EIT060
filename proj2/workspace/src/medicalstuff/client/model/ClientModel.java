@@ -12,15 +12,17 @@ import java.util.Observable;
 import medicalstuff.general.connection.SecureClient;
 import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
+import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.chat.ChatPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
+import medicalstuff.general.medicalpackets.packets.UserPacket;
 
-public class ClientModel extends Observable {
+public class ClientModel extends Observable{
 
 	private String addr;
 	private int port;
 
-	private String id;
+	private String name;
 
 	private SecureClient connection;
 
@@ -33,13 +35,15 @@ public class ClientModel extends Observable {
 		try {
 			connection = new SecureClient(addr, port, new File(username + "_key"), new File(username + "_key"),
 					password);
+			connection.addFactory(new MedicalFactory(null));
 			byte id = connection.send(new LoginPacket());
 			ResponsePacket rp = (ResponsePacket) connection.waitForReply(id);
-			StringPacket sp = (StringPacket) rp.getPacket();
-			this.id = sp.toString();
+			UserPacket up = (UserPacket) rp.getPacket();
+			name = up.getName();
+			
 			setChanged();
 			notifyObservers();
-			if (sp.toString().isEmpty())
+			if (name.isEmpty())
 				return false;
 			return true;
 		} catch (UnrecoverableKeyException | KeyManagementException | KeyStoreException | NoSuchAlgorithmException
@@ -68,7 +72,9 @@ public class ClientModel extends Observable {
 		return sp.toString();
 	}
 
-	public String getID() {
-		return id;
+	public String getName() {
+		return name;
 	}
+
+	
 }
