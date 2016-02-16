@@ -1,30 +1,30 @@
 package medicalstuff.server.model.data.log;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
+import medicalstuff.general.csv.CSV;
 
 public class Logger {
 
-	private PrintStream outstream;
-
-	public Logger(String file){
-		
-		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(file, true);
-			outstream = new PrintStream(fileOutputStream);
-		} catch (FileNotFoundException e) {
-			System.out.println("No output file exists");
-			e.printStackTrace();
-		}
+	private CSV csv;
+	
+	public Logger() throws IOException{
+		csv = new CSV(new File("data/logfire"));
 
 	}
-	public void log(String user, String patient, String action){
-		outstream.println (getDateTime() + " " + user + " " + action + " for patient " + patient);
-		outstream.flush();
+	public void log(String user, String patient, String action) throws IOException{
+		ArrayList<String> data = new ArrayList<>();
+		data.add(user);
+		data.add(patient);
+		data.add(action);
+		data.add(getDateTime());
+		csv.getData().add(data);
+		csv.save();
 	}
 	
 	private String getDateTime() {
