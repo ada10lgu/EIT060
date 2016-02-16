@@ -25,6 +25,10 @@ public class SecureClient extends Client {
 			KeyStoreException, NoSuchAlgorithmException, CertificateException {
 		super(createSocket(addr, port, keystore, truststore, password));
 	}
+	
+	public SecureClient(SSLSocket s) {
+		super(s);
+	}
 
 	private static SSLSocket createSocket(String addr, int port, File keystore, File truststore, char[] password)
 			throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException,

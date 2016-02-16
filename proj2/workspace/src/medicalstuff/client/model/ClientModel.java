@@ -7,10 +7,11 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Observable;
 
 import medicalstuff.general.connection.SecureClient;
 
-public class ClientModel {
+public class ClientModel extends Observable {
 
 	private String addr;
 	private int port;
@@ -23,7 +24,6 @@ public class ClientModel {
 	}
 
 	public boolean login(String username, char[] password) {
-
 		try {
 			connection = new SecureClient(addr, port, new File(username + "_key"), new File(username + "_key"),
 					password);
@@ -32,5 +32,11 @@ public class ClientModel {
 				| CertificateException | IOException e) {
 			return false;
 			}
+	}
+	
+	public boolean isConnected() {
+		if (connection == null)
+			return false;
+		return connection.isAlive();
 	}
 }

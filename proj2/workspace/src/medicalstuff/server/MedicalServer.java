@@ -11,10 +11,12 @@ import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLSocket;
 
+import medicalstuff.general.connection.Client;
 import medicalstuff.general.connection.ConnectionHandler;
+import medicalstuff.general.connection.SecureClient;
 import medicalstuff.general.connection.SecureServer;
 
-public class SStart {
+public class MedicalServer {
 	public static void main(String[] args) {
 
 		char[] password = "password".toCharArray();
@@ -52,11 +54,13 @@ public class SStart {
 		@Override
 		public void addConnection(Socket s) {
 			System.out.println("Connection: " + s);
+			new Client(s);
 		}
 
 		@Override
 		public void addSecureConnection(SSLSocket s) {
 			System.out.println("Secure Connection: " + s);
+			new SecureClient(s);
 		}
 
 	}

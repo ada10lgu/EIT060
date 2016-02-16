@@ -19,7 +19,7 @@ public class Client {
 	private RandomByteSet ids;
 	private HashMap<Byte, OperatorPacket> inbox;
 
-	protected Client(Socket s) {
+	public Client(Socket s) {
 		n = ++CLIENTS;
 		conn = new Connection(s);
 		ids = new RandomByteSet();
