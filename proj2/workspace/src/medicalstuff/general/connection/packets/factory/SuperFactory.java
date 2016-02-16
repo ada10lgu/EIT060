@@ -16,15 +16,15 @@ public class SuperFactory implements PacketFactory {
 	
 	public static final byte SUPER_PACKET = 1;
 
-	public static final byte RESPONSE_PACKET = 10;
-	public static final byte LOGIN_PACKET = 11;
-	public static final byte CHAT_PACKET = 12;
-	public static final byte NULL_PACKET = 13;
+	public static final byte RESPONSE_PACKET = 2;
+	public static final byte LOGIN_PACKET = 3;
+	public static final byte CHAT_PACKET = 4;
+	public static final byte NULL_PACKET = 5;
 
-	public static final byte STRING_PACKET = 101;
-	public static final byte INT_PACKET = 102;
-	public static final byte BYTE_PACKET = 103;
-	public static final byte BOOL_PACKET = 104;
+	public static final byte STRING_PACKET = 6;
+	public static final byte INT_PACKET = 7;
+	public static final byte BYTE_PACKET = 8;
+	public static final byte BOOL_PACKET = 9;
 	
 	private ArrayList<PacketFactory> factories = new ArrayList<>();
 
@@ -38,7 +38,6 @@ public class SuperFactory implements PacketFactory {
 
 	private Packet createPacket(ByteArrayReader bar) {
 		byte type = bar.next();
-		System.out.println("Type: " + type);
 		byte dataSize = bar.next();
 		byte[] data = new byte[dataSize];
 		bar.fillArray(data);
@@ -51,7 +50,7 @@ public class SuperFactory implements PacketFactory {
 
 		Packet p = createPacket(type,data,packets);
 		if (p == null)
-			throw new IllegalArgumentException(bar.toString());
+			throw new IllegalArgumentException("Unparsable type ("+type+")"+bar.toString());
 		return p;
 	}
 	

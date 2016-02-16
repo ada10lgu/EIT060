@@ -1,29 +1,28 @@
 package medicalstuff.general.medicalpackets;
 
+import static medicalstuff.general.medicalpackets.MedicalFactory.LOGIN_PACKET;
+
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 
-public class ChatPacket  extends OperatorPacket{
+public class LoginPacket extends OperatorPacket {
 
-	private ChatModel model;
-	private StringPacket sp;
-	
-	
-	public ChatPacket(String message) {
-		sp = new StringPacket(message);
+	private MedicalModel model;
+
+	public LoginPacket() {
+
 	}
-	
-	public ChatPacket(byte[] data, Packet[] packets, ChatModel model) {
+
+	public LoginPacket(byte[] data, Packet[] packets, MedicalModel model) {
 		this.model = model;
-		sp = (StringPacket) packets[0];
 	}
 
 	@Override
 	public OperatorPacket perform() {
-		String response = model.chat(sp.toString());
-		return new ResponsePacket(new StringPacket(response));
+		String id = model.login();
+		return new ResponsePacket(new StringPacket(id));
 	}
 
 	@Override
@@ -33,18 +32,12 @@ public class ChatPacket  extends OperatorPacket{
 
 	@Override
 	protected Packet[] getPackages() {
-		return new Packet[] {sp};
+		return new Packet[0];
 	}
 
 	@Override
 	protected byte getType() {
-		return ChatFactory.CHAT_PACKET;
-	}
-	
-	@Override
-	public String toString() {
-		
-		return "Chat: " +sp;
+		return LOGIN_PACKET;
 	}
 
 }

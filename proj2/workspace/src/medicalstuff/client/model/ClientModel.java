@@ -13,11 +13,14 @@ import medicalstuff.general.connection.SecureClient;
 import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.ChatPacket;
+import medicalstuff.general.medicalpackets.LoginPacket;
 
 public class ClientModel extends Observable {
 
 	private String addr;
 	private int port;
+
+	private String id;
 
 	private SecureClient connection;
 
@@ -30,32 +33,42 @@ public class ClientModel extends Observable {
 		try {
 			connection = new SecureClient(addr, port, new File(username + "_key"), new File(username + "_key"),
 					password);
+			byte id = connection.send(new LoginPacket());
+			ResponsePacket rp = (ResponsePacket) connection.waitForReply(id);
+			StringPacket sp = (StringPacket) rp.getPacket();
+			this.id = sp.toString();
 			setChanged();
 			notifyObservers();
+			if (sp.toString().isEmpty())
+				return false;
 			return true;
 		} catch (UnrecoverableKeyException | KeyManagementException | KeyStoreException | NoSuchAlgorithmException
 				| CertificateException | IOException e) {
 			return false;
-			}
+		}
 	}
-	
+
 	public boolean isConnected() {
 		if (connection == null)
 			return false;
 		return connection.isAlive();
 	}
-	
+
 	public void logout() throws IOException {
 		connection.close();
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public String sendMessage(String message) {
 		ChatPacket cp = new ChatPacket(message);
 		byte id = connection.send(cp);
 		ResponsePacket rp = (ResponsePacket) connection.waitForReply(id);
 		StringPacket sp = (StringPacket) rp.getPacket();
 		return sp.toString();
+	}
+
+	public String getID() {
+		return id;
 	}
 }
