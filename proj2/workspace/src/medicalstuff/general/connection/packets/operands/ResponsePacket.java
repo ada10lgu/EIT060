@@ -1,7 +1,7 @@
 package medicalstuff.general.connection.packets.operands;
 
 import medicalstuff.general.connection.packets.Packet;
-
+import static medicalstuff.general.connection.packets.factory.SuperFactory.*;
 public class ResponsePacket extends OperatorPacket {
 
 	private Packet p;

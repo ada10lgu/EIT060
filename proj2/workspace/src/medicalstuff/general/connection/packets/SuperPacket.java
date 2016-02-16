@@ -2,6 +2,7 @@ package medicalstuff.general.connection.packets;
 
 import medicalstuff.general.connection.packets.data.BytePacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
+import static medicalstuff.general.connection.packets.factory.SuperFactory.*;
 
 public class SuperPacket extends Packet {
 

@@ -1,7 +1,7 @@
 package medicalstuff.general.connection.packets.data;
 
 import medicalstuff.general.connection.packets.Packet;
-
+import static medicalstuff.general.connection.packets.factory.SuperFactory.*;
 public class BytePacket extends DataPacket {
 
 	byte b;

@@ -21,6 +21,7 @@ public class MedicalStuff extends JPanel implements ActionListener {
 		JButton button = new JButton("Log out");
 		button.addActionListener(this);
 		add(button);
+		add(new ChatBox(model));
 	}
 
 	@Override

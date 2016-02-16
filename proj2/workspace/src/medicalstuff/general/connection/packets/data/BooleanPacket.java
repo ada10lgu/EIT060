@@ -1,7 +1,7 @@
 package medicalstuff.general.connection.packets.data;
 
 import medicalstuff.general.connection.packets.Packet;
-
+import static medicalstuff.general.connection.packets.factory.SuperFactory.*;
 public class BooleanPacket extends DataPacket {
 
 	private boolean b;

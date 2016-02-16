@@ -3,7 +3,7 @@ package medicalstuff.general.connection.packets.data;
 import java.nio.ByteBuffer;
 
 import medicalstuff.general.connection.packets.Packet;
-
+import static medicalstuff.general.connection.packets.factory.SuperFactory.*;
 public class IntPacket extends DataPacket {
 
 	private int i;

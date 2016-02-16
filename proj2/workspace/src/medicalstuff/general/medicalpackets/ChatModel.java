@@ -1,5 +1,5 @@
 package medicalstuff.general.medicalpackets;
 
-public class ChatModel {
-
+public interface ChatModel {
+	public String chat(String message);
 }

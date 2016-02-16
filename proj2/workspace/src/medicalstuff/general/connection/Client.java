@@ -9,6 +9,8 @@ import java.util.HashMap;
 import medicalstuff.general.connection.data.RandomByteSet;
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.SuperPacket;
+import medicalstuff.general.connection.packets.factory.PacketFactory;
+import medicalstuff.general.connection.packets.factory.SuperFactory;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 
 public class Client {
@@ -18,7 +20,8 @@ public class Client {
 	private Connection conn;
 	private RandomByteSet ids;
 	private HashMap<Byte, OperatorPacket> inbox;
-
+	private SuperFactory factory;
+	
 	public Client(Socket s) {
 		n = ++CLIENTS;
 		conn = new Connection(s);
@@ -26,11 +29,16 @@ public class Client {
 		inbox = new HashMap<>();
 
 		new PacketHandler().start();
+		factory = new SuperFactory();
 	}
 
 	public Client(String addr, int port) throws UnknownHostException,
 			IOException {
 		this(new Socket(addr, port));
+	}
+	
+	public synchronized void addFactory(PacketFactory f) {
+		factory.addFactory(f);
 	}
 
 	public synchronized byte send(OperatorPacket p) {
@@ -79,7 +87,7 @@ public class Client {
 				byte[] b = conn.recieve();
 				System.out.println("Recieved package!");
 				try {
-					SuperPacket sp = (SuperPacket) Packet.createPacket(b);
+					SuperPacket sp = (SuperPacket) factory.createPacket(b);
 
 					if (sp.isAck()) {
 						System.out.println("ack:\t" + sp);
