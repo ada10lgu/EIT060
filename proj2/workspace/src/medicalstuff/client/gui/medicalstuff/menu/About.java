@@ -28,7 +28,6 @@ public class About extends JMenuItem implements ActionListener {
 		sb.append("Hannes\n");
 		sb.append("Lars Gustafson (ada10lgu)\n");
 		
-		
 		JOptionPane.showMessageDialog(null, sb.toString(),"About",JOptionPane.INFORMATION_MESSAGE);
 	}
 
