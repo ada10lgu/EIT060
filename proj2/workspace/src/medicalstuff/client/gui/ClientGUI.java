@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import medicalstuff.client.gui.login.LoginPanel;
 import medicalstuff.client.gui.medicalstuff.MedicalStuff;
+import medicalstuff.client.gui.medicalstuff.menu.Menu;
 import medicalstuff.client.model.ClientModel;
 
 @SuppressWarnings("serial")
@@ -43,13 +44,18 @@ public class ClientGUI extends JFrame implements Observer {
 			main.removeAll();
 			if (status) {
 				main.add(new MedicalStuff(model));
+				setJMenuBar(new Menu(model));
+				setSize(800, 600);
+				setResizable(true);
 			} else {
 				main.add(lp);
+				setJMenuBar(null);
+				setSize(300,500);
+				setResizable(false);
 			}
 			main.updateUI();
 			main.repaint();
 		}
-
 		online = status;
 	}
 

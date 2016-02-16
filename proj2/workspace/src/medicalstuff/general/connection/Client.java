@@ -60,6 +60,7 @@ public class Client {
 			} catch (InterruptedException e) {
 				e.printStackTrace(System.err);
 			}
+		inbox.remove(id);
 		ids.returnByte(id);
 		return op;
 	}
