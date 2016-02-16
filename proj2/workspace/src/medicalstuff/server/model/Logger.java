@@ -1,4 +1,4 @@
-package medicalstuff.server;
+package medicalstuff.server.model;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
