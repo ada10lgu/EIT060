@@ -27,6 +27,8 @@ public class ClientModel extends Observable {
 		try {
 			connection = new SecureClient(addr, port, new File(username + "_key"), new File(username + "_key"),
 					password);
+			setChanged();
+			notifyObservers();
 			return true;
 		} catch (UnrecoverableKeyException | KeyManagementException | KeyStoreException | NoSuchAlgorithmException
 				| CertificateException | IOException e) {
@@ -38,5 +40,11 @@ public class ClientModel extends Observable {
 		if (connection == null)
 			return false;
 		return connection.isAlive();
+	}
+	
+	public void logout() throws IOException {
+		connection.close();
+		setChanged();
+		notifyObservers();
 	}
 }

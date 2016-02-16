@@ -1,4 +1,5 @@
-package medicalstuff.client.gui;
+package medicalstuff.client.gui.login;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -75,7 +76,11 @@ public class LoginPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (!model.login(user.getText(), password.getPassword()))
+		if (model.login(user.getText(), password.getPassword())) {
+			user.setText("");
+			password.setText("");
+		} else {
 			JOptionPane.showMessageDialog(null, "Could not connect");
+		}
 	}
 }

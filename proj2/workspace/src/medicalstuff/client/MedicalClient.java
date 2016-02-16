@@ -1,6 +1,6 @@
 package medicalstuff.client;
 
-import medicalstuff.client.gui.ClientGUI;
+import medicalstuff.client.gui.login.ClientGUI;
 import medicalstuff.client.model.ClientModel;
 
 public class MedicalClient {
