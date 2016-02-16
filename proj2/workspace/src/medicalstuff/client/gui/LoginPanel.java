@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import medicalstuff.client.ClientConnection;
+import medicalstuff.client.model.ClientModel;
 
 @SuppressWarnings("serial")
 public class LoginPanel extends JPanel implements ActionListener {
@@ -22,8 +20,10 @@ public class LoginPanel extends JPanel implements ActionListener {
 	private JPanel center;
 	private JTextField user;
 	private JPasswordField password;
+	private ClientModel model;
 
-	public LoginPanel() {
+	public LoginPanel(ClientModel model) {
+		this.model = model;
 		setLayout(null);
 		center = new JPanel();
 		center.setBackground(Color.YELLOW);
@@ -75,15 +75,7 @@ public class LoginPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-
-		System.out.println("User:" + user.getText());
-		System.out.println("Pass:" + Arrays.toString(password.getPassword()));
-
-		try {
-			new ClientConnection(user.getText(), password.getPassword(), "localhost", 12345);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-
+		if (!model.login(user.getText(), password.getPassword()))
+			JOptionPane.showMessageDialog(null, "Could not connect");
 	}
 }
