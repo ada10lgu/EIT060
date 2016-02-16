@@ -61,13 +61,11 @@ public class LoginPanel extends JPanel implements ActionListener {
 	@Override
 	public void repaint() {
 		if (center != null) {
-
 			int width = getWidth();
 			int height = getHeight();
 			if (height != 0) {
 				int x = width / 2 - 100;
 				int y = height / 2 - 150;
-				System.out.println(y);
 				center.setBounds(x, y, 200, 300);
 			} else {
 				center.setBounds(50, 80, 200, 300);

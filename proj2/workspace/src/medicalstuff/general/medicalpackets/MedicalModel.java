@@ -1,7 +1,9 @@
 package medicalstuff.general.medicalpackets;
 
+import medicalstuff.server.model.data.user.User;
+
 public interface MedicalModel {
 
 	
-	public String login();
+	public User login();
 }

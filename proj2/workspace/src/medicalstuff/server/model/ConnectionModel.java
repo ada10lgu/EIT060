@@ -8,10 +8,11 @@ import javax.net.ssl.SSLSocket;
 import javax.security.cert.X509Certificate;
 
 import medicalstuff.general.connection.SecureClient;
-import medicalstuff.general.medicalpackets.ChatFactory;
-import medicalstuff.general.medicalpackets.ChatModel;
 import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.MedicalModel;
+import medicalstuff.general.medicalpackets.chat.ChatFactory;
+import medicalstuff.general.medicalpackets.chat.ChatModel;
+import medicalstuff.server.model.data.user.User;
 
 public class ConnectionModel implements ChatModel, MedicalModel {
 	private SecureClient connection;
@@ -33,15 +34,18 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 	}
 
 	@Override
-	public String login() {
+	public User login() {
 		try {
 			SSLSession session = s.getSession();
 			X509Certificate cert = (X509Certificate) session.getPeerCertificateChain()[0];
 			BigInteger bi = cert.getSerialNumber();
-			return bi.toString();
+			
+			User u = superModel.getUser(bi.toString());
+			
+			return u;
 		} catch (SSLPeerUnverifiedException e) {
 			e.printStackTrace();
 		}
-		return "";
+		return null;
 	}
 }

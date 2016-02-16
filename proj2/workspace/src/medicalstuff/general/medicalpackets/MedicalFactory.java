@@ -2,6 +2,7 @@ package medicalstuff.general.medicalpackets;
 
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.factory.PacketFactory;
+import medicalstuff.general.medicalpackets.packets.LoginPacket;
 
 public class MedicalFactory implements PacketFactory {
 

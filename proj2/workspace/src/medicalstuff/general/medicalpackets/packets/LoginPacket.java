@@ -1,4 +1,4 @@
-package medicalstuff.general.medicalpackets;
+package medicalstuff.general.medicalpackets.packets;
 
 import static medicalstuff.general.medicalpackets.MedicalFactory.LOGIN_PACKET;
 
@@ -6,6 +6,8 @@ import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
+import medicalstuff.general.medicalpackets.MedicalModel;
+import medicalstuff.server.model.data.user.User;
 
 public class LoginPacket extends OperatorPacket {
 
@@ -21,8 +23,8 @@ public class LoginPacket extends OperatorPacket {
 
 	@Override
 	public OperatorPacket perform() {
-		String id = model.login();
-		return new ResponsePacket(new StringPacket(id));
+		User u = model.login();
+		return new ResponsePacket(new StringPacket(u.getName()));
 	}
 
 	@Override
@@ -38,6 +40,11 @@ public class LoginPacket extends OperatorPacket {
 	@Override
 	protected byte getType() {
 		return LOGIN_PACKET;
+	}
+	
+	@Override
+	public String toString() {
+		return "Login";
 	}
 
 }

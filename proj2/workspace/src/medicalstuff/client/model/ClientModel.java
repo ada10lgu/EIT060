@@ -12,8 +12,8 @@ import java.util.Observable;
 import medicalstuff.general.connection.SecureClient;
 import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
-import medicalstuff.general.medicalpackets.ChatPacket;
-import medicalstuff.general.medicalpackets.LoginPacket;
+import medicalstuff.general.medicalpackets.chat.ChatPacket;
+import medicalstuff.general.medicalpackets.packets.LoginPacket;
 
 public class ClientModel extends Observable {
 

@@ -1,4 +1,4 @@
-package medicalstuff.general.medicalpackets;
+package medicalstuff.general.medicalpackets.chat;
 
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.factory.PacketFactory;

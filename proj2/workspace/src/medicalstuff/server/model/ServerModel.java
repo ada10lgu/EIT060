@@ -13,12 +13,22 @@ import javax.net.ssl.SSLSocket;
 
 import medicalstuff.general.connection.ConnectionHandler;
 import medicalstuff.general.connection.SecureServer;
+import medicalstuff.server.model.data.user.User;
+import medicalstuff.server.model.data.user.UserList;
 
 public class ServerModel implements ConnectionHandler {
 
 	private SecureServer ss;
-	
-	public ServerModel(int port, File keystore, File truststore, char[] password) throws KeyManagementException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	private UserList users;
+
+	public ServerModel(int port, File keystore, File truststore, char[] password) throws KeyManagementException,
+			UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+		System.out.print("Loading users...");
+		users = new UserList();
+		System.out.println("done");
+
+		//users.addUser("Hanna Andreason", ""+123, 0);
+		
 		ss = new SecureServer(port, this, keystore, truststore, password);
 		ss.start();
 	}
@@ -31,5 +41,9 @@ public class ServerModel implements ConnectionHandler {
 	public void addSecureConnection(SSLSocket s) {
 		new ConnectionModel(s, this);
 	}
-	
+
+	public User getUser(String serial) {
+		return users.getUser(serial);
+	}
+
 }
