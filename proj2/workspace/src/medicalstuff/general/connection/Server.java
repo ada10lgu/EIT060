@@ -6,11 +6,15 @@ import java.net.Socket;
 
 public class Server extends Thread {
 
-	private ServerSocket ss;
-	private ConnectionHandler ch;
-	
+	protected ServerSocket ss;
+	protected ConnectionHandler ch;
+
 	public Server(int port, ConnectionHandler ch) throws IOException {
-		ss = new ServerSocket(port);
+		this (new ServerSocket(port),ch);
+	}
+
+	protected Server(ServerSocket ss, ConnectionHandler ch) {
+		this.ss = ss;
 		this.ch = ch;
 	}
 
@@ -20,7 +24,6 @@ public class Server extends Thread {
 		while (!isInterrupted()) {
 			try {
 				Socket s = ss.accept();
-				System.out.println(s);
 				ch.addConnection(s);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -28,7 +31,6 @@ public class Server extends Thread {
 		}
 	}
 
-	
 	@Override
 	public synchronized void interrupt() {
 		super.interrupt();
