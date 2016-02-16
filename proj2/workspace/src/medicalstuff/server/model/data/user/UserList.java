@@ -39,6 +39,10 @@ public class UserList {
 		return null;
 	}
 	
+	public int size() {
+		return users.size();
+	}
+	
 	
 	
 	

@@ -25,7 +25,7 @@ public class ServerModel implements ConnectionHandler {
 			UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 		System.out.print("Loading users...");
 		users = new UserList();
-		System.out.println("done");
+		System.out.println("loaded " +users.size() + " users");
 
 		//users.addUser("Hanna Andreason", ""+123, 0);
 		
