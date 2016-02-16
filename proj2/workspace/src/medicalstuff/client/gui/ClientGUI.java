@@ -1,4 +1,4 @@
-package medicalstuff.client.gui.login;
+package medicalstuff.client.gui;
 
 import java.awt.BorderLayout;
 import java.util.Observable;
@@ -7,6 +7,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import medicalstuff.client.gui.login.LoginPanel;
 import medicalstuff.client.gui.medicalstuff.MedicalStuff;
 import medicalstuff.client.model.ClientModel;
 
