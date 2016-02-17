@@ -96,9 +96,12 @@ create_truststore() {
 	keytool -import -trustcacerts -v -file $1 -keystore $2 -keypass $3 -alias $1
 }
 
+# Generates 4 new clients with trust and keystores
+#  - Stores the CA in both stores
+#  - Stores a signed public/private key-pair in the keystore
 generate_clients() {
-	create_keystore DavidKeystore password David "cn=David o=Patient ou=Cardiology"
-	create_keystore HannaKeystore password Hanna "cn=Hanna o=Doctor ou=Cardiology"
-	create_keystore HannesKeystore password Hannes "cn=Hannes o=Nurse ou=Cardiology"
-	create_keystore LarsKeystore password Lars "cn=Lars o=Government ou=Cardiology"
+	generate_client david david "cn=David o=Patient ou=Cardiology"
+	generate_client hanna hanna "cn=Hanna o=Doctor ou=Cardiology"
+	generate_client lars lars "cn=Lars o=Nurse ou=Cardiology"
+	generate_client hannes hannes "cn=Hannes o=Government ou=Cardiology"
 }
