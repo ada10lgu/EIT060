@@ -41,7 +41,7 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 			BigInteger bi = cert.getSerialNumber();
 			
 			User u = superModel.getUser(bi.toString());
-			
+			superModel.loglogin(u.getSerial());
 			return u;
 		} catch (SSLPeerUnverifiedException e) {
 			e.printStackTrace();
