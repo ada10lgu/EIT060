@@ -20,6 +20,6 @@ public class MedicalServer {
 		
 		new ServerModel(port, keystore, truststore, password);
 		
-		
+				
 	}
 }

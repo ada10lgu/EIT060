@@ -20,8 +20,10 @@ public class Client {
 	private RandomByteSet ids;
 	private HashMap<Byte, OperatorPacket> inbox;
 	private SuperFactory factory;
-	
-	public Client(Socket s) {
+	private boolean verbose = false;
+
+	public Client(Socket s, Boolean verbose) {
+		this.verbose = verbose;
 		n = ++CLIENTS;
 		conn = new Connection(s);
 		ids = new RandomByteSet();
@@ -31,11 +33,22 @@ public class Client {
 		factory = new SuperFactory();
 	}
 
-	public Client(String addr, int port) throws UnknownHostException,
-			IOException {
+	public Client(Socket s) {
+		this(s, false);
+	}
+
+	public Client(String addr, int port) throws UnknownHostException, IOException {
 		this(new Socket(addr, port));
 	}
-	
+
+	public Client(String addr, int port, boolean verbose) throws UnknownHostException, IOException {
+		this(new Socket(addr, port), verbose);
+	}
+
+	public void setVerbose(boolean verbose) {
+		this.verbose = verbose;
+	}
+
 	public synchronized void addFactory(PacketFactory f) {
 		factory.addFactory(f);
 	}
@@ -82,22 +95,27 @@ public class Client {
 
 		@Override
 		public void run() {
-			System.out.println("Lets do this!");
+			if (verbose)
+				System.out.println("Lets do this!");
 			while (true) {
 				byte[] b = conn.recieve();
-				System.out.println("Recieved package!");
+				if (verbose)
+					System.out.println("Recieved package!");
 				try {
 					SuperPacket sp = (SuperPacket) factory.createPacket(b);
 
 					if (sp.isAck()) {
-						System.out.println("ack:\t" + sp);
+						if (verbose)
+							System.out.println("ack:\t" + sp);
 						byte id = sp.getId();
 						OperatorPacket op = sp.getPacket();
 						addResponse(id, op);
 					} else {
 						SuperPacket response = sp.getAck();
-						System.out.println("incomming:\t" + sp);
-						System.out.println("response:\t" + response);
+						if (verbose) {
+							System.out.println("incomming:\t" + sp);
+							System.out.println("response:\t" + response);
+						}
 						conn.send(response.getData());
 					}
 				} catch (ClassCastException e) {
@@ -119,9 +137,11 @@ public class Client {
 
 		@Override
 		public void run() {
-			System.out.println(id + ":yay i got a job!");
+			if (verbose)
+				System.out.println(id + ":yay i got a job!");
 			waitForReply(id);
-			System.out.println(id + ": Done!");
+			if (verbose)
+				System.out.println(id + ": Done!");
 		}
 	}
 
