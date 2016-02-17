@@ -7,6 +7,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.HashMap;
 import java.util.Observable;
 
 import medicalstuff.general.connection.SecureClient;
@@ -74,6 +75,10 @@ public class ClientModel extends Observable{
 
 	public String getName() {
 		return name;
+	}
+	
+	public HashMap<String,String> getServerInfo() {
+		return connection.getServerInfo();
 	}
 
 	

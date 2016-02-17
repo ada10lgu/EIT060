@@ -11,23 +11,30 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.HashMap;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLPeerUnverifiedException;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
+import javax.security.cert.X509Certificate;
 
 public class SecureClient extends Client {
+
+	private SSLSocket s;
 
 	public SecureClient(String addr, int port, File keystore, File truststore, char[] password)
 			throws UnknownHostException, IOException, UnrecoverableKeyException, KeyManagementException,
 			KeyStoreException, NoSuchAlgorithmException, CertificateException {
-		super(createSocket(addr, port, keystore, truststore, password));
+		this(createSocket(addr, port, keystore, truststore, password));
 	}
-	
+
 	public SecureClient(SSLSocket s) {
 		super(s);
+		this.s = s;
 	}
 
 	private static SSLSocket createSocket(String addr, int port, File keystore, File truststore, char[] password)
@@ -49,6 +56,27 @@ public class SecureClient extends Client {
 
 		socket.startHandshake();
 		return socket;
+	}
+
+	public HashMap<String, String> getServerInfo() {
+		HashMap<String, String> data = new HashMap<>();
+		SSLSession session = s.getSession();
+		X509Certificate cert;
+		String subject = "";
+		String issuer = "";
+		String serial = "";
+		try {
+			cert = (X509Certificate) session.getPeerCertificateChain()[0];
+			subject = cert.getSubjectDN().getName();
+			issuer = cert.getIssuerDN().getName();
+			serial = cert.getSerialNumber().toString();
+		} catch (SSLPeerUnverifiedException e) {
+
+		}
+		data.put("subject", subject);
+		data.put("issuer", issuer);
+		data.put("serial", serial);
+		return data;
 	}
 
 }
