@@ -39,7 +39,6 @@ public class Logger {
 			id = Integer.parseInt(csv.getData().get(size-1).get(0));
 		}
 		id++;
-		System.out.println(id);
 		return "" + id;
 	}
 	private String getDateTime() {
