@@ -1,6 +1,7 @@
 package medicalstuff.client.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -47,17 +48,22 @@ public class ClientGUI extends JFrame implements Observer {
 		boolean status = model.isConnected();
 		if (status != online) {
 			main.removeAll();
+			Dimension d = null;
 			if (status) {
 				main.add(new MedicalStuff(model));
 				setJMenuBar(new Menu(model));
-				setSize(MEDICAL_WIDTH, MEDICAL_HEIGHT);
+				d = new Dimension(MEDICAL_WIDTH, MEDICAL_HEIGHT);
 				setResizable(true);
 			} else {
 				main.add(lp);
 				setJMenuBar(null);
-				setSize(LOGIN_WIDTH, LOGIN_HEIGHT);
+				d = new Dimension(LOGIN_WIDTH,LOGIN_HEIGHT);
+				pack();
 				setResizable(false);
 			}
+			setPreferredSize(d);
+			setMaximumSize(d);
+			setMinimumSize(d);
 			main.updateUI();
 			main.repaint();
 		}
