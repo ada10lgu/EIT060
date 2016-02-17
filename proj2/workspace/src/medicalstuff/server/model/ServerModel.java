@@ -2,6 +2,7 @@ package medicalstuff.server.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.BindException;
 import java.net.Socket;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -26,17 +27,22 @@ public class ServerModel implements ConnectionHandler {
 	public ServerModel(int port, File keystore, File truststore, char[] password) throws KeyManagementException,
 			UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 
-		System.out.print("Loading logfile...");
+		System.out.print("Loading logfile...\t");
 		logger = new Logger();
 		System.out.println("done");
 		
-		System.out.print("Loading users...");
+		System.out.print("Loading users...\t");
 		users = new UserList();
 		System.out.println("loaded " +users.size() + " users");
 
-		
+		try {
 		ss = new SecureServer(port, this, keystore, truststore, password);
 		ss.start();
+		} catch (BindException e) {
+			System.out.println("Could not start server since port is allready in use.");
+			System.out.println("Terminating program.");
+			System.exit(-1);
+		}
 	}
 
 	@Override
