@@ -10,8 +10,8 @@ RANDFILE               = $ENV::HOME/.rnd
  C                      = SV
  ST                     = Skania
  L                      = Lund
- O                      = LTH
- OU                     = EIT
+ O                      = SUS
+ OU                     = LUS
  CN                     = CA
  emailAddress           = test@email.address
 
