@@ -18,6 +18,9 @@ import medicalstuff.client.model.ClientModel;
 @SuppressWarnings("serial")
 public class LoginPanel extends JPanel implements ActionListener {
 
+	private static final int MID_WIDTH = 200;
+	private static final int MID_HEIGHT = 130;
+	
 	private JPanel center;
 	private JTextField user;
 	private JPasswordField password;
@@ -64,11 +67,9 @@ public class LoginPanel extends JPanel implements ActionListener {
 			int width = getWidth();
 			int height = getHeight();
 			if (height != 0) {
-				int x = width / 2 - 100;
-				int y = height / 2 - 150;
-				center.setBounds(x, y, 200, 300);
-			} else {
-				center.setBounds(50, 80, 200, 300);
+				int x = (width-MID_WIDTH) / 2;
+				int y = (height-MID_HEIGHT) / 2;
+				center.setBounds(x, y, MID_WIDTH, MID_HEIGHT);
 			}
 		}
 		super.repaint();

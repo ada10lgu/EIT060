@@ -15,6 +15,11 @@ import medicalstuff.client.model.ClientModel;
 @SuppressWarnings("serial")
 public class ClientGUI extends JFrame implements Observer {
 
+	public static final int LOGIN_WIDTH = 300;
+	public static final int LOGIN_HEIGHT = 500;
+	public static final int MEDICAL_WIDTH = 800;
+	public static final int MEDICAL_HEIGHT = 600;
+
 	private LoginPanel lp;
 	private boolean online = true;
 	private ClientModel model;
@@ -28,7 +33,7 @@ public class ClientGUI extends JFrame implements Observer {
 		main = new JPanel(new BorderLayout());
 		add(main, BorderLayout.CENTER);
 
-		setSize(300, 500);
+		setSize(LOGIN_WIDTH, LOGIN_HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		lp = new LoginPanel(model);
@@ -45,12 +50,12 @@ public class ClientGUI extends JFrame implements Observer {
 			if (status) {
 				main.add(new MedicalStuff(model));
 				setJMenuBar(new Menu(model));
-				setSize(800, 600);
+				setSize(MEDICAL_WIDTH, MEDICAL_HEIGHT);
 				setResizable(true);
 			} else {
 				main.add(lp);
 				setJMenuBar(null);
-				setSize(300,500);
+				setSize(LOGIN_WIDTH, LOGIN_HEIGHT);
 				setResizable(false);
 			}
 			main.updateUI();
