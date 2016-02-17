@@ -1,6 +1,7 @@
 package medicalstuff.server.model;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSession;
@@ -12,6 +13,7 @@ import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.MedicalModel;
 import medicalstuff.general.medicalpackets.chat.ChatFactory;
 import medicalstuff.general.medicalpackets.chat.ChatModel;
+import medicalstuff.server.model.data.journal.JournalSnippet;
 import medicalstuff.server.model.data.user.User;
 
 public class ConnectionModel implements ChatModel, MedicalModel {
@@ -47,5 +49,10 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public ArrayList<JournalSnippet> getJournals() {
+		return superModel.getJournals();
 	}
 }

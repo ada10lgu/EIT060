@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import medicalstuff.general.connection.data.ByteArrayReader;
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.SuperPacket;
+import medicalstuff.general.connection.packets.data.ArrayPacket;
 import medicalstuff.general.connection.packets.data.BooleanPacket;
 import medicalstuff.general.connection.packets.data.BytePacket;
 import medicalstuff.general.connection.packets.data.IntPacket;
@@ -25,6 +26,7 @@ public class SuperFactory implements PacketFactory {
 	public static final byte INT_PACKET = 7;
 	public static final byte BYTE_PACKET = 8;
 	public static final byte BOOL_PACKET = 9;
+	public static final byte ARRAY_PACKET = 10;
 	
 	private ArrayList<PacketFactory> factories = new ArrayList<>();
 
@@ -78,6 +80,9 @@ public class SuperFactory implements PacketFactory {
 			break;
 		case BOOL_PACKET:
 			p = new BooleanPacket(data,packets);
+			break;
+		case ARRAY_PACKET:
+			p = new ArrayPacket(data,packets);
 			break;
 		default:
 			for (PacketFactory pf : factories) {

@@ -2,13 +2,16 @@ package medicalstuff.general.medicalpackets;
 
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.factory.PacketFactory;
+import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
 
 public class MedicalFactory implements PacketFactory {
 
-	public static final byte LOGIN_PACKET = 10;
-	public static final byte USER_PACKET = 11;
+	public static final byte LOGIN_PACKET = 11;
+	public static final byte USER_PACKET = 12;
+	public static final byte JOURNAL_LIST_PACKET = 13;
+	
 	
 
 	private MedicalModel model;
@@ -27,7 +30,9 @@ public class MedicalFactory implements PacketFactory {
 		case USER_PACKET:
 			p = new UserPacket(data,packets);
 			break;
-
+		case JOURNAL_LIST_PACKET:
+			p = new JournalListPacket(data,packets,model);
+			break;
 		}
 		return p;
 	}
