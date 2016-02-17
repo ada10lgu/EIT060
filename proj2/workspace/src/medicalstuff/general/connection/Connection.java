@@ -14,8 +14,7 @@ class Connection {
 	private ConnectionQueue inbox;
 	private ConnectionQueue outbox;
 
-	public Connection(String addr, int port) throws UnknownHostException,
-			IOException {
+	public Connection(String addr, int port) throws UnknownHostException, IOException {
 		this(new Socket(addr, port));
 	}
 
@@ -71,9 +70,12 @@ class Connection {
 					newData(data);
 				}
 			} catch (IOException e) {
-				System.err.println("Error in connection! (recieveing)");
-				System.err.println(e.getMessage());
-				System.err.println("------");
+				if (!socket.isClosed() || !e.getMessage().startsWith("EOF") || !e.getMessage().startsWith("Socket closed")) {
+					System.err.println("Error in connection! (recieveing)");
+					System.err.println(e.getMessage());
+					System.err.println(socket.isConnected());
+					System.err.println("------");
+				}
 				try {
 					close();
 				} catch (IOException e1) {
