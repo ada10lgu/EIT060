@@ -3,6 +3,7 @@ package medicalstuff.general.medicalpackets.packets;
 import static medicalstuff.general.medicalpackets.MedicalFactory.LOGIN_PACKET;
 
 import medicalstuff.general.connection.packets.Packet;
+import medicalstuff.general.connection.packets.operands.NullPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalModel;
@@ -23,6 +24,8 @@ public class LoginPacket extends OperatorPacket {
 	@Override
 	public OperatorPacket perform() {
 		User u = model.login();
+		if (u == null)
+			return new NullPacket();
 		return new ResponsePacket(new UserPacket(u.getName()));
 	}
 

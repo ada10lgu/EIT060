@@ -42,11 +42,17 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 			X509Certificate cert = (X509Certificate) session.getPeerCertificateChain()[0];
 			BigInteger bi = cert.getSerialNumber();
 
-			System.out.println(bi);
 			
 			User u = superModel.getUser(bi.toString());
-			superModel.loglogin(u.getSerial());
-			return u;
+	
+			if (u == null) {
+				System.out.println("Unknown user: " +bi);
+				superModel.loglogin(s,bi.toString());
+			} else {
+				superModel.loglogin(u.getSerial());
+				return u;
+			}
+			
 		} catch (SSLPeerUnverifiedException e) {
 			e.printStackTrace();
 		}

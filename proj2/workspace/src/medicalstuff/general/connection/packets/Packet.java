@@ -8,6 +8,9 @@ public abstract class Packet {
 
 	protected abstract byte getType();
 
+	public boolean isNull() {
+		return false;
+	}
 	
 	public final byte[] getData() {
 		int size = 3;
