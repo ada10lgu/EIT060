@@ -2,9 +2,10 @@ package medicalstuff.general.medicalpackets.packets;
 
 import static medicalstuff.general.medicalpackets.MedicalFactory.CREATE_JOURNAL_PACKET;
 import medicalstuff.general.connection.packets.Packet;
+import medicalstuff.general.connection.packets.data.BooleanPacket;
 import medicalstuff.general.connection.packets.data.StringPacket;
-import medicalstuff.general.connection.packets.operands.NullPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
+import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalModel;
 
 
@@ -25,8 +26,8 @@ public class CreateJournalPacket extends OperatorPacket {
 
 	@Override
 	public OperatorPacket perform() {
-		model.createJournal(patient.toString());
-		return new NullPacket();
+		boolean b = model.createJournal(patient.toString());
+		return new ResponsePacket(new BooleanPacket(b));
 	}
 
 	@Override

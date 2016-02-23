@@ -94,4 +94,10 @@ public class ServerModel implements ConnectionHandler {
 		return users.getUsers(3);
 	}
 
+	public boolean createJournal(String[]user ,String patient) {
+		boolean b = journals.addJournal(patient);
+		logger.log(user[0], patient, "created journal", user[1]);
+		return b;
+	}
+
 }

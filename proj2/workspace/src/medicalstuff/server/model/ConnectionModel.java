@@ -74,7 +74,7 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 	}
 
 	@Override
-	public void createJournal(String patient) {
-		
+	public boolean createJournal(String patient) {
+		return superModel.createJournal(user,patient);
 	}
 }
