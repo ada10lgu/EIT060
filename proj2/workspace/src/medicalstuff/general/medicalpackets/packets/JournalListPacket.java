@@ -26,15 +26,16 @@ public class JournalListPacket extends OperatorPacket {
 
 	@Override
 	public OperatorPacket perform() {
-		ArrayList<JournalSnippet> js =model.getJournals();
-		
+		ArrayList<JournalSnippet> js = model.getJournals();
+
 		ArrayPacket list = new ArrayPacket();
 		for (JournalSnippet snip : js) {
 			ArrayPacket temp = new ArrayPacket();
 			temp.addPacket(new StringPacket(snip.getUser()));
 			temp.addPacket(new IntPacket(snip.getID()));
+			list.addPacket(temp);
 		}
-		
+
 		return new ResponsePacket(list);
 	}
 
