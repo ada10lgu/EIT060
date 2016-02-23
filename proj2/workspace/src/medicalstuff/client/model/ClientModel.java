@@ -95,6 +95,9 @@ public class ClientModel extends Observable {
 		OperatorPacket op = connection.waitForReply(id);
 		
 		System.out.println(op);
+	}
+	
+	public void createJournal(String user) {
 		
 	}
 

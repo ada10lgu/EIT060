@@ -3,10 +3,11 @@ package medicalstuff.general.connection.packets.data;
 import static medicalstuff.general.connection.packets.factory.SuperFactory.ARRAY_PACKET;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import medicalstuff.general.connection.packets.Packet;
 
-public class ArrayPacket extends DataPacket{
+public class ArrayPacket extends DataPacket implements Iterable<Packet>{
 
 	private ArrayList<Packet> packets;
 	
@@ -45,6 +46,11 @@ public class ArrayPacket extends DataPacket{
 	
 	public void addPacket(Packet p) {
 		packets.add(p);
+	}
+
+	@Override
+	public Iterator<Packet> iterator() {
+		return packets.iterator();
 	}
 
 }
