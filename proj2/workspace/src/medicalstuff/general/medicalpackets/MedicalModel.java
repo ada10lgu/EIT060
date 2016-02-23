@@ -13,4 +13,6 @@ public interface MedicalModel {
 	public ArrayList<JournalSnippet> getJournals();
 
 	public ArrayList<String[]>  getPatients();
+
+	public void createJournal(String patient);
 }
