@@ -21,6 +21,8 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 	private ServerModel superModel;
 	private SSLSocket s;
 
+	private String[] user = new String[2];
+	
 	public ConnectionModel(SSLSocket s, ServerModel superModel) {
 		this.s = s;
 		connection = new SecureClient(s);
@@ -49,7 +51,9 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 				System.out.println("Unknown user: " +bi);
 				superModel.loglogin(s,bi.toString());
 			} else {
-				superModel.loglogin(u.getSerial());
+				user[0] = u.getSerial();
+				user[1] = s.getInetAddress().toString();
+				superModel.loglogin(user);
 				return u;
 			}
 			

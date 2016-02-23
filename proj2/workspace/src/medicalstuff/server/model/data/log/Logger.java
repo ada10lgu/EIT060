@@ -17,12 +17,13 @@ public class Logger {
 		csv = new CSV(new File("data/logfire"));
 
 	}
-	public void log(String user, String patient, String action){
+	public synchronized void log(String user, String patient, String action,String ip){
 		ArrayList<String> data = new ArrayList<>();
 		data.add(getNewID());
 		data.add(user);
 		data.add(patient);
 		data.add(action);
+		data.add(ip);
 		data.add(getDateTime());
 		csv.getData().add(data);
 		try {

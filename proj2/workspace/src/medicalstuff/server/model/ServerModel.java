@@ -75,19 +75,19 @@ public class ServerModel implements ConnectionHandler {
 		return null;
 	}
 
-	public Journal getJournal(String user, int id) {
+	public Journal getJournal(String[] user, int id) {
 		Journal j = journals.getJournal(id);
-		logger.log(user, j.getPatient(), "requested journal");
+		logger.log(user[0], j.getPatient(), "requested journal",user[1]);
 		return null;
 	}
 
-	public void loglogin(String user) {
-		logger.log(user, "-1", "logged in");
+	public void loglogin(String[] user) {
+		logger.log(user[0], "-1", "logged in",user[1]);
 	}
 
 	public void loglogin(SSLSocket s,String serial) {
 		String info = s.toString();
-		logger.log(serial, "-1", "unknown user ("+info+")");
+		logger.log(serial, "-1", "unknown user ("+info+")",s.getInetAddress().toString());
 	}
 
 }
