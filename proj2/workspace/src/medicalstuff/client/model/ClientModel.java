@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Observable;
 
 import medicalstuff.general.connection.SecureClient;
+import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.data.ArrayPacket;
 import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
@@ -98,6 +99,10 @@ public class ClientModel extends Observable {
 		ResponsePacket rp = (ResponsePacket) op;
 		ArrayPacket ap = (ArrayPacket) rp.getPacket();
 		
+		for(Packet p : ap) {
+			ArrayPacket apInner = (ArrayPacket) p;
+		
+		}
 		
 		System.out.println(op);
 	}
