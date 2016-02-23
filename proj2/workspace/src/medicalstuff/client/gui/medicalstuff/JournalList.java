@@ -24,6 +24,8 @@ public class JournalList extends JPanel {
 		
 		add(new CreateJournalButton(model),BorderLayout.NORTH);
 		add(myList,BorderLayout.CENTER);
+		JournalListUpdater jlu = new JournalListUpdater();
+		jlu.start();
 	}
 	
 	public void update() {
