@@ -30,7 +30,11 @@ public class JournalList extends JPanel {
 	
 	public void update() {
 		ArrayList<JournalInfo> journals = model.getJournals();
-		myList = new JList<JournalInfo>((JournalInfo[]) journals.toArray());
+		JournalInfo[] temp = new JournalInfo[journals.size()];
+		for(int i = 0; i < journals.size(); i++) {
+			temp[i] = journals.get(i);
+		}
+		myList = new JList<JournalInfo>(temp);
 		remove(myList);
 		add(myList, BorderLayout.CENTER);
 	}
