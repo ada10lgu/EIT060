@@ -52,5 +52,13 @@ public class ArrayPacket extends DataPacket implements Iterable<Packet>{
 	public Iterator<Packet> iterator() {
 		return packets.iterator();
 	}
+	
+	public int size() {
+		return packets.size();
+	}
+	
+	public Packet get(int index) {
+		return packets.get(index);
+	}
 
 }
