@@ -22,9 +22,10 @@ public class UserList {
 		}
 	}
 	
-	public void addUser(String name, String serial, int group) throws IOException {
+	public void addUser(String name,String pnr, String serial, int group) throws IOException {
 		ArrayList<String> data = new ArrayList<>();
 		data.add(name);
+		data.add(pnr);
 		data.add(serial);
 		data.add("" + group);
 		csv.getData().add(data);
@@ -41,6 +42,23 @@ public class UserList {
 	
 	public int size() {
 		return users.size();
+	}
+
+	public ArrayList<String[]> getUsers(int group) {
+		ArrayList<String[]> data = new ArrayList<>();
+		int i =0 ;
+		for (User u : users) {
+			if (i++ == 2)
+				break;
+			if (u.getGroup() == group){
+				String[] s = new String[2];
+				s[0] = u.getName();
+				s[1] = u.getSerial();
+				data.add(s);
+			}
+		}
+		return data;
+		
 	}
 	
 	

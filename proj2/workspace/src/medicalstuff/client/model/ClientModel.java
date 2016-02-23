@@ -16,6 +16,7 @@ import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.chat.ChatPacket;
+import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
 
@@ -87,6 +88,14 @@ public class ClientModel extends Observable {
 
 	public HashMap<String, String> getServerInfo() {
 		return connection.getServerInfo();
+	}
+
+	public void getPatients() {
+		byte id = connection.send(new GetPatientsPacket());
+		OperatorPacket op = connection.waitForReply(id);
+		
+		System.out.println(op);
+		
 	}
 
 }

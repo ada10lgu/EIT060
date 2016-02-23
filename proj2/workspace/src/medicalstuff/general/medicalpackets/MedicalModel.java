@@ -11,4 +11,6 @@ public interface MedicalModel {
 	public User login();
 
 	public ArrayList<JournalSnippet> getJournals();
+
+	public ArrayList<String[]>  getPatients();
 }

@@ -14,11 +14,11 @@ public class User {
 	}
 	
 	public String getSerial() {
-		return data.get(1);
+		return data.get(2);
 	}
 	
 	public int getGroup() {
-		return Integer.parseInt(data.get(2));
+		return Integer.parseInt(data.get(3));
 	}
 	
 	

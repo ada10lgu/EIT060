@@ -64,6 +64,7 @@ class Connection {
 				InputStream is = socket.getInputStream();
 				while (true) {
 					byte b = readByte(is);
+					System.out.println(b);
 					byte[] data = new byte[b];
 					for (int i = 0; i < data.length; i++)
 						data[i] = readByte(is);

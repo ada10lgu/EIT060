@@ -22,7 +22,7 @@ public class MedicalStuff extends JPanel implements ActionListener {
 		
 		setLayout(new BorderLayout());
 		
-		add(new JournalList(),BorderLayout.WEST);
+		add(new JournalList(model),BorderLayout.WEST);
 		add(new JournalPane(model),BorderLayout.CENTER);
 		
 //		JButton button = new JButton("Log out");

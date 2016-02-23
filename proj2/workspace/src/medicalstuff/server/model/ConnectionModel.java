@@ -67,4 +67,9 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 	public ArrayList<JournalSnippet> getJournals() {
 		return superModel.getJournals();
 	}
+
+	@Override
+	public ArrayList<String[]> getPatients() {
+		return superModel.getPatients();
+	}
 }
