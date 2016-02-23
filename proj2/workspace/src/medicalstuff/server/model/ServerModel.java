@@ -29,8 +29,10 @@ public class ServerModel implements ConnectionHandler {
 	private JournalList journals;
 	private Logger logger;
 
-	public ServerModel(int port, File keystore, File truststore, char[] password,boolean verbose) throws KeyManagementException,
-			UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	public ServerModel(int port, File keystore, File truststore,
+			char[] password, boolean verbose) throws KeyManagementException,
+			UnrecoverableKeyException, KeyStoreException,
+			NoSuchAlgorithmException, CertificateException, IOException {
 
 		System.out.print("Loading logfile...\t");
 		logger = new Logger();
@@ -45,10 +47,12 @@ public class ServerModel implements ConnectionHandler {
 		System.out.println("loaded " + journals.size() + " journals");
 
 		try {
-			ss = new SecureServer(port, this, keystore, truststore, password,verbose);
+			ss = new SecureServer(port, this, keystore, truststore, password,
+					verbose);
 			ss.start();
 		} catch (BindException e) {
-			System.out.println("Could not start server since port is allready in use.");
+			System.out
+					.println("Could not start server since port is allready in use.");
 			System.out.println("Terminating program.");
 			System.exit(-1);
 		}
@@ -78,7 +82,12 @@ public class ServerModel implements ConnectionHandler {
 	}
 
 	public void loglogin(String user) {
-		logger.log(user,user,"logged in");
+		logger.log(user, "-1", "logged in");
+	}
+
+	public void loglogin(SSLSocket s,String serial) {
+		String info = s.toString();
+		logger.log(serial, "-1", "unknown user ("+info+")");
 	}
 
 }

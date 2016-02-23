@@ -8,6 +8,11 @@ public class NullPacket  extends OperatorPacket{
 		
 	}
 	
+	@Override
+	public boolean isNull() {
+		return true;
+	}
+	
 	public NullPacket(byte[] data, Packet[] packets) {
 	}
 

@@ -12,23 +12,24 @@ import java.util.Observable;
 
 import medicalstuff.general.connection.SecureClient;
 import medicalstuff.general.connection.packets.data.StringPacket;
+import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.chat.ChatPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
 
-public class ClientModel extends Observable{
+public class ClientModel extends Observable {
 
 	private String addr;
 	private int port;
 	private String certFolder;
-	
+
 	private String name;
 
 	private SecureClient connection;
 
-	public ClientModel(String addr, int port,String certFolder) {
+	public ClientModel(String addr, int port, String certFolder) {
 		this.addr = addr;
 		this.port = port;
 		this.certFolder = certFolder;
@@ -36,20 +37,25 @@ public class ClientModel extends Observable{
 
 	public boolean login(String username, char[] password) {
 		try {
-			connection = new SecureClient(addr, port, new File(certFolder + username + "_key"), new File(certFolder + username + "_trust"),
-					password);
+			connection = new SecureClient(addr, port, new File(certFolder
+					+ username + "_key"), new File(certFolder + username
+					+ "_trust"), password);
 			connection.addFactory(new MedicalFactory(null));
 			byte id = connection.send(new LoginPacket());
-			ResponsePacket rp = (ResponsePacket) connection.waitForReply(id);
+			OperatorPacket op = connection.waitForReply(id);
+			if (op.isNull())
+				return false;
+			ResponsePacket rp = (ResponsePacket) op;
 			UserPacket up = (UserPacket) rp.getPacket();
 			name = up.getName();
-			
+
 			setChanged();
 			notifyObservers();
 			if (name.isEmpty())
 				return false;
 			return true;
-		} catch (UnrecoverableKeyException | KeyManagementException | KeyStoreException | NoSuchAlgorithmException
+		} catch (UnrecoverableKeyException | KeyManagementException
+				| KeyStoreException | NoSuchAlgorithmException
 				| CertificateException | IOException e) {
 			return false;
 		}
@@ -78,10 +84,9 @@ public class ClientModel extends Observable{
 	public String getName() {
 		return name;
 	}
-	
-	public HashMap<String,String> getServerInfo() {
+
+	public HashMap<String, String> getServerInfo() {
 		return connection.getServerInfo();
 	}
 
-	
 }
