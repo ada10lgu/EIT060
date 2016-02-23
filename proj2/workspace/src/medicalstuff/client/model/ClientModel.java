@@ -100,6 +100,9 @@ public class ClientModel extends Observable {
 		
 		
 		System.out.println(op);
+	}
+	
+	public void createJournal(String user) {
 		
 	}
 
