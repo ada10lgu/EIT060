@@ -1,6 +1,6 @@
 package medicalstuff.general.medicalpackets.packets;
 
-import static medicalstuff.general.medicalpackets.MedicalFactory.GET_PATIENT_PACKET;
+import static medicalstuff.general.medicalpackets.MedicalFactory.GET_PATIENTS_PACKET;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalModel;
+
 
 public class GetPatientsPacket extends OperatorPacket {
 
@@ -52,7 +53,7 @@ public class GetPatientsPacket extends OperatorPacket {
 
 	@Override
 	protected byte getType() {
-		return GET_PATIENT_PACKET;
+		return GET_PATIENTS_PACKET;
 	}
 
 }
