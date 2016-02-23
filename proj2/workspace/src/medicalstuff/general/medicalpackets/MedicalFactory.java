@@ -30,19 +30,18 @@ public class MedicalFactory implements PacketFactory {
 			p = new LoginPacket(data, packets, model);
 			break;
 		case USER_PACKET:
-			p = new UserPacket(data,packets);
+			p = new UserPacket(data, packets);
 			break;
 		case JOURNAL_LIST_PACKET:
-			p = new JournalListPacket(data,packets,model);
+			p = new JournalListPacket(data, packets, model);
 			break;
 		case GET_PATIENTS_PACKET:
-			p = new GetPatientsPacket(data,packets,model);
+			p = new GetPatientsPacket(data, packets, model);
 			break;
 		case CREATE_JOURNAL_PACKET:
-			p = new CreateJournalPacket(data,packets,model);
+			p = new CreateJournalPacket(data, packets, model);
 			break;
 		}
 		return p;
 	}
-
 }
