@@ -19,6 +19,7 @@ import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.chat.ChatPacket;
+import medicalstuff.general.medicalpackets.packets.CreateJournalPacket;
 import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
@@ -113,6 +114,7 @@ public class ClientModel extends Observable {
 	}
 	
 	public void createJournal(String patient) {
+		CreateJournalPacket cjp = new CreateJournalPacket(patient);
 		System.out.println(patient);
 	}
 
