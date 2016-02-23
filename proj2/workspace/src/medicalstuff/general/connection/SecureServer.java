@@ -37,8 +37,8 @@ public class SecureServer extends Server {
 		KeyStore ks = KeyStore.getInstance("JKS");
 		KeyStore ts = KeyStore.getInstance("JKS");
 
-		ks.load(new FileInputStream("serverkeystore"), password);
-		ts.load(new FileInputStream("servertruststore"), password);
+		ks.load(new FileInputStream(keystore), password);
+		ts.load(new FileInputStream(truststore), password);
 		kmf.init(ks, password);
 		tmf.init(ts);
 		ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);

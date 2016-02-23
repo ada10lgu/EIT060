@@ -15,8 +15,8 @@ public class MedicalServer {
 
 		char[] password = "password".toCharArray();
 		int port = 12345;
-		File keystore = new File("serverkeystore");
-		File truststore = new File("servertruststore");
+		File keystore = new File("certs/server_key");
+		File truststore = new File("certs/server_trust");
 		
 		new ServerModel(port, keystore, truststore, password);
 		
