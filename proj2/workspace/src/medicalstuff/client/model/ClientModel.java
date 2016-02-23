@@ -22,19 +22,21 @@ public class ClientModel extends Observable{
 
 	private String addr;
 	private int port;
-
+	private String certFolder;
+	
 	private String name;
 
 	private SecureClient connection;
 
-	public ClientModel(String addr, int port) {
+	public ClientModel(String addr, int port,String certFolder) {
 		this.addr = addr;
 		this.port = port;
+		this.certFolder = certFolder;
 	}
 
 	public boolean login(String username, char[] password) {
 		try {
-			connection = new SecureClient(addr, port, new File("certs/" + username + "_key"), new File("certs/" + username + "_key"),
+			connection = new SecureClient(addr, port, new File(certFolder + username + "_key"), new File("certs/" + username + "_key"),
 					password);
 			connection.addFactory(new MedicalFactory(null));
 			byte id = connection.send(new LoginPacket());

@@ -18,7 +18,11 @@ public class MedicalServer {
 		File keystore = new File("certs/server_key");
 		File truststore = new File("certs/server_trust");
 		
-		new ServerModel(port, keystore, truststore, password);
+		keystore = new File("serverkeystore");
+		truststore = new File("servertruststore");
+	
+		
+		new ServerModel(port, keystore, truststore, password,true);
 		
 				
 	}
