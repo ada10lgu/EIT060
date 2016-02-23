@@ -5,7 +5,7 @@ CERT="ca.crt";
 KEY="key.crt";
 SERVERTS="servertruststore";
 SERVERKS="serverkeystore";
-SERVERCN="CA";
+CA="CA";
 
 
 # Create CA Certificate, $1 = password
@@ -41,10 +41,18 @@ generate_server() {
 	server_alias=$1
 	keystore_name="$1"_key 
 	truststore_name="$1"_trust
+	csr_name="$1".csr
+	signed_csr_name="$1".cer
 	server_password=$2
 	d_name=$3
 
+	echo "Server keystore"
 	create_keystore $keystore_name $server_password $server_alias $d_name
+	generate_csr $keystore_name $server_alias $csr_name
+	sign_csr $csr_name $KEY $signed_csr_name
+	import_cer $signed_csr_name $keystore_name $server_alias
+
+	echo "Server truststore"
 	create_truststore $CERT $truststore_name $server_password 
 }
 
@@ -61,7 +69,7 @@ create_keystore() {
 	keytool -genkeypair -alias $3 -keystore $1 -storepass $2 -dname $4
 
 	echo "Importing CA to keystore"
-	keytool -import -alias CA -file $CERT -keystore $1
+	keytool -import -trustcacerts -v -file $CERT -keystore $1 -keypass $2 -alias $CA
 }
 
 # $1:Name of keystore $2: alias $3: name of csr file to create
@@ -93,7 +101,7 @@ create_truststore() {
 	fi
 
 	echo "Creating new truststore and importing CA"
-	keytool -import -trustcacerts -v -file $1 -keystore $2 -keypass $3 -alias $1
+	keytool -import -trustcacerts -v -file $1 -keystore $2 -keypass $3 -alias $CA
 }
 
 # Generates 4 new clients with trust and keystores
@@ -103,5 +111,5 @@ generate_clients() {
 	generate_client david password "cn=David o=Patient ou=Cardiology"
 	generate_client hanna password "cn=Hanna o=Doctor ou=Cardiology"
 	generate_client lars password "cn=Lars o=Nurse ou=Cardiology"
-	generate_client hannes password "cn=Hannes o=Government ou=Cardiology"
+	generate_client hannes passwordge "cn=Hannes o=Government ou=Cardiology"
 }
