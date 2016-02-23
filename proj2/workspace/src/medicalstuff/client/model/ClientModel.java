@@ -14,6 +14,7 @@ import java.util.Observable;
 import medicalstuff.general.connection.SecureClient;
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.data.ArrayPacket;
+import medicalstuff.general.connection.packets.data.BooleanPacket;
 import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
@@ -113,10 +114,12 @@ public class ClientModel extends Observable {
 		return patients;
 	}
 	
-	public void createJournal(String patient) {
+	public boolean createJournal(String patient) {
 		CreateJournalPacket cjp = new CreateJournalPacket(patient);
 		byte id = connection.send(cjp);
-		connection.waitForReply(id);
+		ResponsePacket rp = (ResponsePacket) connection.waitForReply(id);
+		BooleanPacket bp = (BooleanPacket) rp.getPacket();
+		return bp.toBoolean();
 	}
 
 }

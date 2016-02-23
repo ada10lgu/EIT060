@@ -26,5 +26,9 @@ public class BooleanPacket extends DataPacket {
 	protected byte getType() {
 		return BOOL_PACKET;
 	}
+	
+	public boolean toBoolean() {
+		return b;
+	}
 
 }
