@@ -115,7 +115,8 @@ public class ClientModel extends Observable {
 	
 	public void createJournal(String patient) {
 		CreateJournalPacket cjp = new CreateJournalPacket(patient);
-		System.out.println(patient);
+		byte id = connection.send(cjp);
+		connection.waitForReply(id);
 	}
 
 }
