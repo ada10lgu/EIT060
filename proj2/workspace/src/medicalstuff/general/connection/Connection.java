@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 
 import medicalstuff.general.connection.data.ConnectionQueue;
 
@@ -14,7 +15,8 @@ class Connection {
 	private ConnectionQueue inbox;
 	private ConnectionQueue outbox;
 
-	public Connection(String addr, int port) throws UnknownHostException, IOException {
+	public Connection(String addr, int port) throws UnknownHostException,
+			IOException {
 		this(new Socket(addr, port));
 	}
 
@@ -63,15 +65,18 @@ class Connection {
 			try {
 				InputStream is = socket.getInputStream();
 				while (true) {
-					byte b = readByte(is);
-					System.out.println(b);
-					byte[] data = new byte[b];
+					byte[] l = new byte[4];
+					for (int i = 0; i < 4; i++)
+						l[i] = readByte(is);
+					int length = byteToInt(l);
+					byte[] data = new byte[length];
 					for (int i = 0; i < data.length; i++)
 						data[i] = readByte(is);
 					newData(data);
 				}
 			} catch (IOException e) {
-				if (!socket.isClosed() || !e.getMessage().startsWith("EOF") || !e.getMessage().startsWith("Socket closed")) {
+				if (!socket.isClosed() || !e.getMessage().startsWith("EOF")
+						|| !e.getMessage().startsWith("Socket closed")) {
 					System.err.println("Error in connection! (recieveing)");
 					System.err.println(e.getMessage());
 					System.err.println(socket.isConnected());
@@ -101,7 +106,8 @@ class Connection {
 				OutputStream os = socket.getOutputStream();
 				while (true) {
 					byte[] data = getData();
-					byte size = (byte) data.length;
+					byte[] size = intToByte(data.length);
+
 					os.write(size);
 					os.write(data);
 					os.flush();
@@ -125,5 +131,14 @@ class Connection {
 
 	public boolean isAlive() {
 		return !socket.isClosed();
+	}
+
+	private byte[] intToByte(int i) {
+		return ByteBuffer.allocate(4).putInt(i).array();
+	}
+
+	private int byteToInt(byte[] b) {
+		ByteBuffer bb = ByteBuffer.wrap(b);
+		return bb.getInt();
 	}
 }
