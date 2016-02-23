@@ -36,7 +36,7 @@ public class ClientModel extends Observable{
 
 	public boolean login(String username, char[] password) {
 		try {
-			connection = new SecureClient(addr, port, new File(certFolder + username + "_key"), new File("certs/" + username + "_key"),
+			connection = new SecureClient(addr, port, new File(certFolder + username + "_key"), new File(certFolder + username + "_trust"),
 					password);
 			connection.addFactory(new MedicalFactory(null));
 			byte id = connection.send(new LoginPacket());

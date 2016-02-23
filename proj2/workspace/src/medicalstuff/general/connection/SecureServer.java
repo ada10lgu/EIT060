@@ -36,6 +36,10 @@ public class SecureServer extends Server {
 			throws KeyStoreException, NoSuchAlgorithmException,
 			CertificateException, FileNotFoundException, IOException,
 			KeyManagementException, UnrecoverableKeyException {
+	
+		System.out.println(keystore);
+		System.out.println(truststore);
+		
 		SSLServerSocketFactory ssf = null;
 		SSLContext ctx = SSLContext.getInstance("TLS");
 		KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
