@@ -72,7 +72,7 @@ public class ServerModel implements ConnectionHandler {
 	}
 
 	public ArrayList<JournalSnippet> getJournals() {
-		return null;
+		return journals.getJournals();
 	}
 
 	public Journal getJournal(String[] user, int id) {
