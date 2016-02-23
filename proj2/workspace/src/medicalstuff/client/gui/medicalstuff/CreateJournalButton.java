@@ -39,7 +39,9 @@ public class CreateJournalButton extends JButton implements ActionListener {
 													// icon
 				choices, // Array of choices
 				choices[0]); // Initial choice
-		model.createJournal(input.getSerial());
+		if (input != null) {
+			model.createJournal(input.getSerial());
+		}
 	}
 	private class PatientInfo {
 		private String patientName, patientSerial;
