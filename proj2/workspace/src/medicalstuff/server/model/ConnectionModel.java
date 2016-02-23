@@ -42,6 +42,8 @@ public class ConnectionModel implements ChatModel, MedicalModel {
 			X509Certificate cert = (X509Certificate) session.getPeerCertificateChain()[0];
 			BigInteger bi = cert.getSerialNumber();
 
+			System.out.println(bi);
+			
 			User u = superModel.getUser(bi.toString());
 			superModel.loglogin(u.getSerial());
 			return u;

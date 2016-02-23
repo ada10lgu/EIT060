@@ -11,19 +11,16 @@ import java.security.cert.CertificateException;
 import medicalstuff.server.model.ServerModel;
 
 public class MedicalServer {
-	public static void main(String[] args) throws KeyManagementException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	public static void main(String[] args) throws KeyManagementException,
+			UnrecoverableKeyException, KeyStoreException,
+			NoSuchAlgorithmException, CertificateException, IOException {
 
 		char[] password = "password".toCharArray();
 		int port = 12345;
 		File keystore = new File("certs/server_key");
 		File truststore = new File("certs/server_trust");
-		
-		keystore = new File("serverkeystore");
-		truststore = new File("servertruststore");
-	
-		
-		new ServerModel(port, keystore, truststore, password,true);
-		
-				
+
+		new ServerModel(port, keystore, truststore, password, true);
+
 	}
 }
