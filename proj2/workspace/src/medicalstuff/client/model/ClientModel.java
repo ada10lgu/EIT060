@@ -7,6 +7,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 
@@ -92,19 +93,25 @@ public class ClientModel extends Observable {
 		return connection.getServerInfo();
 	}
 
-	public void getPatients() {
-		byte id = connection.send(new GetPatientsPacket());
-		OperatorPacket op = connection.waitForReply(id);
+	public ArrayList<String[]> getPatients() {
+		ArrayList<String[]> patients = new ArrayList<String[]>();
 		
+		byte id = connection.send(new GetPatientsPacket());
+		
+		OperatorPacket op = connection.waitForReply(id);
 		ResponsePacket rp = (ResponsePacket) op;
 		ArrayPacket ap = (ArrayPacket) rp.getPacket();
 		
 		for(Packet p : ap) {
 			ArrayPacket apInner = (ArrayPacket) p;
-		
+			String[] patient = new String[2];
+			patient[0] = ((StringPacket) apInner.get(0)).toString();
+			patient[1] = ((StringPacket) apInner.get(1)).toString();
+			patients.add(patient);
 		}
 		
 		System.out.println(op);
+		return patients;
 	}
 	
 	public void createJournal(String user) {
