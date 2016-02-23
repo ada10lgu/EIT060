@@ -100,8 +100,8 @@ create_truststore() {
 #  - Stores the CA in both stores
 #  - Stores a signed public/private key-pair in the keystore
 generate_clients() {
-	generate_client david david "cn=David o=Patient ou=Cardiology"
-	generate_client hanna hanna "cn=Hanna o=Doctor ou=Cardiology"
-	generate_client lars lars "cn=Lars o=Nurse ou=Cardiology"
-	generate_client hannes hannes "cn=Hannes o=Government ou=Cardiology"
+	generate_client david password "cn=David o=Patient ou=Cardiology"
+	generate_client hanna password "cn=Hanna o=Doctor ou=Cardiology"
+	generate_client lars password "cn=Lars o=Nurse ou=Cardiology"
+	generate_client hannes password "cn=Hannes o=Government ou=Cardiology"
 }
