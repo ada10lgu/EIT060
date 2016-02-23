@@ -24,18 +24,28 @@ public class CreateJournalButton extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
-		model.getPatients();
+		//model.getPatients();
 		
 		ArrayList<String[]> data = new ArrayList<>();
+		String[] patient1 = {"Patient1", "1"};
+		String[] patient2 = {"Patient2", "2"};
+		String[] patient3 = {"Patient3", "3"};
 		
-		String[] choices = { "A", "B", "C", "D", "E", "F" };
+		data.add(patient1);
+		data.add(patient2);
+		data.add(patient3);
+		
+		String[] choices = new String[data.size()];
+		for(int i = 0; i < data.size(); i++) {
+			choices[i] = data.get(i)[0];
+		}
 		String input = (String) JOptionPane.showInputDialog(null,
 				"Choose patient", "Create Journal",
 				JOptionPane.QUESTION_MESSAGE, null, // Use
 													// default
 													// icon
 				choices, // Array of choices
-				choices[1]); // Initial choice
+				choices[0]); // Initial choice
 		System.out.println(input);
 	}
 
