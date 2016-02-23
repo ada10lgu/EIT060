@@ -18,44 +18,40 @@ public class CreateJournalButton extends JButton implements ActionListener {
 		super("New Journal");
 		this.model = model;
 		addActionListener(this);
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		ArrayList<String[]> data = model.getPatients();
-		
+
 		PatientInfo[] choices = new PatientInfo[data.size()];
-		for(int i = 0; i < data.size(); i++) {
+		for (int i = 0; i < data.size(); i++) {
 			PatientInfo p = new PatientInfo(data.get(i));
 			choices[i] = p;
 		}
-		
-		
+
 		PatientInfo input = (PatientInfo) JOptionPane.showInputDialog(null,
 				"Choose patient", "Create Journal",
-				JOptionPane.QUESTION_MESSAGE, null, // Use
-													// default
-													// icon
-				choices, // Array of choices
-				choices[0]); // Initial choice
+				JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
 		if (input != null) {
 			if (!model.createJournal(input.getSerial()))
 				JOptionPane.showMessageDialog(null, "Could not create Journal");
 		}
 	}
+
 	private class PatientInfo {
 		private String patientName, patientSerial;
-		
+
 		public PatientInfo(String[] patientInfo) {
 			patientName = patientInfo[0];
 			patientSerial = patientInfo[1];
 		}
-		
+
 		public String getSerial() {
 			return patientSerial;
 		}
-		
+
 		@Override
 		public String toString() {
 			return patientName;
