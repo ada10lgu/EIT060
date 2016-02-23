@@ -13,9 +13,15 @@ public class JournalList {
 
 	private CSV csv;
 
+	private ArrayList<Journal> journals;
+
 	public JournalList() throws IOException {
 		csv = new CSV(new File("data/journal"));
 
+		journals = new ArrayList<>();
+
+		for (ArrayList<String> data : csv.getData())
+			journals.add(new Journal(data));
 	}
 
 	public synchronized boolean addJournal(String patient) {
@@ -29,20 +35,27 @@ public class JournalList {
 		} catch (IOException e) {
 			return false;
 		}
+		journals.add(new Journal(data));
 		return true;
 
 	}
 
 	public ArrayList<JournalSnippet> getJournals() {
-		return null;
+		ArrayList<JournalSnippet> snippets = new ArrayList<>();
+		for (Journal j : journals)
+			snippets.add(new JournalSnippet(j.getPatient(), j.getID()));
+		return snippets;
 	}
 
 	public Journal getJournal(int id) {
+		for (Journal j : journals)
+			if (j.getID() == id)
+				return j;
 		return null;
 	}
 
 	public int size() {
-		return 0;
+		return journals.size();
 	}
 
 	private String getNewID() {
