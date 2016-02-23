@@ -36,8 +36,6 @@ public class GetPatientsPacket extends OperatorPacket {
 			ap.addPacket(temp);
 		}
 		ResponsePacket rp = new ResponsePacket(ap);
-		System.out.println(rp);
-		System.out.println(Arrays.toString(rp.getData()));
 		return rp;
 	}
 

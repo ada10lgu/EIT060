@@ -109,13 +109,11 @@ public class ClientModel extends Observable {
 			patient[1] = ((StringPacket) apInner.get(1)).toString();
 			patients.add(patient);
 		}
-		
-		System.out.println(op);
 		return patients;
 	}
 	
 	public void createJournal(String patient) {
-		
+		System.out.println(patient);
 	}
 
 }
