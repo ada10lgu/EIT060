@@ -10,8 +10,8 @@ CA="CA";
 
 # Create CA Certificate, $1 = password
 generate_ca() {
-	password = $1
 	echo "Generating new CA certificate";
+	password = $1
 	openssl req -x509 -newkey rsa:1024 -keyout $KEY -out $CERT -config $CONFIG
 }
 
@@ -28,9 +28,9 @@ generate_client() {
 
 	# Keystore
 	create_keystore $keystore_name $client_password $client_alias $d_name
-	generate_csr $keystore_name $client_alias $csr_name
+	generate_csr $keystore_name $client_alias $csr_name $client_password
 	sign_csr $csr_name $KEY $signed_csr_name
-	import_cer $signed_csr_name $keystore_name $client_alias
+	import_cer $signed_csr_name $keystore_name $client_alias $client_password
 
 	# Truststore
 	create_truststore $CERT $truststore_name $client_password
@@ -48,9 +48,9 @@ generate_server() {
 
 	echo "Server keystore"
 	create_keystore $keystore_name $server_password $server_alias $d_name
-	generate_csr $keystore_name $server_alias $csr_name
+	generate_csr $keystore_name $server_alias $csr_name $server_password
 	sign_csr $csr_name $KEY $signed_csr_name
-	import_cer $signed_csr_name $keystore_name $server_alias
+	import_cer $signed_csr_name $keystore_name $server_alias $server_password
 
 	echo "Server truststore"
 	create_truststore $CERT $truststore_name $server_password 
@@ -72,9 +72,9 @@ create_keystore() {
 	keytool -import -trustcacerts -v -file $CERT -keystore $1 -keypass $2 -alias $CA
 }
 
-# $1:Name of keystore $2: alias $3: name of csr file to create
+# $1:Name of keystore $2: alias $3: name of csr file to create $4: password
 generate_csr() {
-	keytool -certreq -keystore $1 -keyalg rsa:1024 -alias $2 -file $3 
+	keytool -certreq -keystore $1 -keyalg rsa:1024 -alias $2 -file $3 -keypass $4
 }
 
 # $1:CSR Name $2: CA Name Key $3: Signed file name
@@ -82,10 +82,10 @@ sign_csr() {
 	openssl x509 -req -in $1 -CA $CERT -CAkey $2 -CAcreateserial -out $3
 }
 
-# $1: Cer to import $2: Keystore name $3: alias
+# $1: Cer to import $2: Keystore name $3: alias $4: password
 import_cer() {
 	#keytool -import -trustcacerts -keystore $CKSNAME -file $CERT -alias $CAROOT
-	keytool -import -file $1 -keystore $2 -alias $3
+	keytool -import -file $1 -keystore $2 -alias $3 -keypass $4
 }
 
 # Create server keystore and truststore
@@ -111,5 +111,16 @@ generate_clients() {
 	generate_client david password "cn=David o=Patient ou=Cardiology"
 	generate_client hanna password "cn=Hanna o=Doctor ou=Cardiology"
 	generate_client lars password "cn=Lars o=Nurse ou=Cardiology"
-	generate_client hannes passwordge "cn=Hannes o=Government ou=Cardiology"
+	generate_client hannes password "cn=Hannes o=Government ou=Cardiology"
+	generate_client mengele password "cn=DrMengele"
+}
+
+generate_government() {
+	generate_client lansstyrelsen password "cn=Lansstyrelsen"
+}
+
+generate_patients() {
+	generate_client patient1 password "cn=Patient1"
+	generate_client patient2 password "cn=Patient2"
+	generate_client patient3 password "cn=Patient3"
 }
