@@ -29,7 +29,7 @@ public class ServerModel implements ConnectionHandler {
 	private JournalList journals;
 	private Logger logger;
 
-	public ServerModel(int port, File keystore, File truststore, char[] password) throws KeyManagementException,
+	public ServerModel(int port, File keystore, File truststore, char[] password,boolean verbose) throws KeyManagementException,
 			UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 
 		System.out.print("Loading logfile...\t");
@@ -45,7 +45,7 @@ public class ServerModel implements ConnectionHandler {
 		System.out.println("loaded " + journals.size() + " journals");
 
 		try {
-			ss = new SecureServer(port, this, keystore, truststore, password);
+			ss = new SecureServer(port, this, keystore, truststore, password,verbose);
 			ss.start();
 		} catch (BindException e) {
 			System.out.println("Could not start server since port is allready in use.");
