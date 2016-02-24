@@ -1,7 +1,6 @@
 package medicalstuff.client.model;
 
 public class Journal {
-
 	public final int id;
 	public final String patient;
 	public final String doctor;
