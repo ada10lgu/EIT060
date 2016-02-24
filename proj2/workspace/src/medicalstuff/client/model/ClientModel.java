@@ -27,19 +27,20 @@ import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
-import medicalstuff.server.model.data.journal.Journal;
 
 public class ClientModel extends Observable {
 
 	private String addr;
 	private int port;
 	private String certFolder;
+	private SecureClient connection;
 
 	private String name;
 	private String serial;
 	private int group;
+	
+	private int activeJournal = -1;
 
-	private SecureClient connection;
 
 	public ClientModel(String addr, int port, String certFolder) {
 		this.addr = addr;
@@ -146,20 +147,22 @@ public class ClientModel extends Observable {
 		return journals;
 	}
 
-	public Journal getJournal(int journalId) {
-		byte id = connection.send(new GetJournalPacket(journalId));
+	public Journal getJournal() {
+		if (activeJournal == -1)
+			return null;
+		byte id = connection.send(new GetJournalPacket(activeJournal));
 		OperatorPacket op = connection.waitForReply(id);
 		ResponsePacket rp = (ResponsePacket) op;
 		ArrayPacket ap = (ArrayPacket) rp.getPacket();
-		
-		ArrayList<String> data = new ArrayList<String>();
-		data.add(((StringPacket) ap.get(0)).toString());
-		data.add(((StringPacket) ap.get(1)).toString());
-		data.add(((StringPacket) ap.get(2)).toString());
-		data.add(((StringPacket) ap.get(3)).toString());
-		data.add(((StringPacket) ap.get(4)).toString());
-		
-		Journal j = new Journal(data);
+		System.out.println(ap);
+//		ArrayList<String> data = new ArrayList<String>();
+//		data.add(((StringPacket) ap.get(0)).toString());
+//		data.add(((StringPacket) ap.get(1)).toString());
+//		data.add(((StringPacket) ap.get(2)).toString());
+//		data.add(((StringPacket) ap.get(3)).toString());
+//		data.add(((StringPacket) ap.get(4)).toString());
+//		
+		Journal j = new Journal();
 		return j;
 	}
 	
@@ -181,5 +184,9 @@ public class ClientModel extends Observable {
 			patients.add(patient);
 		}
 		return patients;
+	}
+
+	public void setActiveJournal(int activeJournal) {
+		this.activeJournal = activeJournal;
 	}
 }

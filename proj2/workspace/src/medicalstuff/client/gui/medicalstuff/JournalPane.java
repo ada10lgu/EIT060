@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import medicalstuff.client.gui.medicalstuff.journal.DisplayJournal;
 import medicalstuff.client.gui.medicalstuff.journal.FetchJournalButton;
 import medicalstuff.client.model.ClientModel;
-import medicalstuff.client.model.Journal;
 import medicalstuff.client.model.JournalInfo;
 
 @SuppressWarnings("serial")
@@ -15,13 +14,14 @@ public class JournalPane extends JPanel {
 
 	private ClientModel model;
 	private int activeJournal = -1;
-	private Journal j;
 	private FetchJournalButton button;
+	private DisplayJournal display;
 	
 	public JournalPane(ClientModel model) {
 		setBorder(BorderFactory.createTitledBorder(""));
 		this.model = model;
 		button = new FetchJournalButton(this);
+		display = new DisplayJournal(model);
 		add(new JLabel("Welcome"));
 	}
 	
@@ -36,9 +36,9 @@ public class JournalPane extends JPanel {
 	}
 
 	public void showJournal() {
-		j = model.getJournal(activeJournal);
+		model.setActiveJournal(activeJournal);
 		removeAll();
-		add(new DisplayJournal(j));
+		add(display);
 		updateUI();
 	}
 }
