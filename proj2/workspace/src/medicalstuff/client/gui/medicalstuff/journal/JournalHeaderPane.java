@@ -34,9 +34,15 @@ public class JournalHeaderPane extends JPanel {
 		
 		c.gridx = 0;
 		c.gridy = 0;
-		
 		add(new JLabel("Journal #"),c);
+		c.gridx = 1;
+		add(id,c);
 		
+		c.gridy++;
+		c.gridx = 0;
+		add(new JLabel("Patient:"),c);
+		c.gridx = 1;
+		add(patient,c);
 		
 		updateUI();
 	}

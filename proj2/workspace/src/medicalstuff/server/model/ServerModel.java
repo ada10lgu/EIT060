@@ -36,15 +36,15 @@ public class ServerModel implements ConnectionHandler {
 			throws KeyManagementException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
 			CertificateException, IOException {
 
-		System.out.print("Loading logfile...\t");
+		System.out.print("Loading logfile...\t\t");
 		logger = new Logger();
 		System.out.println("done");
 
-		System.out.print("Loading users...\t");
+		System.out.print("Loading users...\t\t");
 		users = new UserList();
 		System.out.println("loaded " + users.size() + " users");
 
-		System.out.print("Loading journals...\t");
+		System.out.print("Loading journals...\t\t");
 		journals = new JournalList();
 		System.out.println("loaded " + journals.size() + " journals");
 		
