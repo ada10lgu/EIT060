@@ -14,5 +14,5 @@ public interface MedicalModel {
 
 	public ArrayList<String[]>  getPatients();
 
-	public boolean createJournal(String patient);
+	public boolean createJournal(String patient, String doctor, String nurse);
 }

@@ -66,7 +66,7 @@ public class ConnectionModel implements MedicalModel {
 	}
 
 	@Override
-	public boolean createJournal(String patient) {
-		return superModel.createJournal(user, patient);
+	public boolean createJournal(String patient, String doctor, String nurse) {
+		return superModel.createJournal(user, patient, doctor, nurse);
 	}
 }
