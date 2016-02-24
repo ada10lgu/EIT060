@@ -1,5 +1,7 @@
 package medicalstuff.client.gui.medicalstuff;
 
+import java.awt.BorderLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,10 +21,11 @@ public class JournalPane extends JPanel {
 	
 	public JournalPane(ClientModel model) {
 		setBorder(BorderFactory.createTitledBorder(""));
+		setLayout(new BorderLayout());
 		this.model = model;
 		button = new FetchJournalButton(this);
 		display = new DisplayJournal(model);
-		add(new JLabel("Welcome"));
+		add(new JLabel("Welcome"),BorderLayout.CENTER);
 	}
 	
 	public void setJournal(JournalInfo ji) {
@@ -31,14 +34,14 @@ public class JournalPane extends JPanel {
 		
 		activeJournal = ji.getID();
 		removeAll();
-		add(button);
-		updateUI();
-	}
+		add(button,BorderLayout.CENTER);
+		updateUI();/*
+	}*/
 
 	public void showJournal() {
 		model.setActiveJournal(activeJournal);
 		removeAll();
-		add(display);
+		add(display,BorderLayout.CENTER);
 		updateUI();
 	}
 }
