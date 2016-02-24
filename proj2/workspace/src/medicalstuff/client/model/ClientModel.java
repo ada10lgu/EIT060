@@ -150,13 +150,19 @@ public class ClientModel extends Observable {
 		byte id = connection.send(new GetJournalPacket(journalId));
 		OperatorPacket op = connection.waitForReply(id);
 		ResponsePacket rp = (ResponsePacket) op;
+		ArrayPacket ap = (ArrayPacket) rp.getPacket();
 		
+		ArrayList<String> data = new ArrayList<String>();
+		data.add(((StringPacket) ap.get(0)).toString());
+		data.add(((StringPacket) ap.get(1)).toString());
+		data.add(((StringPacket) ap.get(2)).toString());
+		data.add(((StringPacket) ap.get(3)).toString());
+		data.add(((StringPacket) ap.get(4)).toString());
 		
+		Journal j = new Journal(data);
+		return j;
 	}
 	
-	public void setActiveJournal(int id) {
-		
-	}
 
 	public ArrayList<String[]> getNurses() {
 		ArrayList<String[]> patients = new ArrayList<String[]>();
