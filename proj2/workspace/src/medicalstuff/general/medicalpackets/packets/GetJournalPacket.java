@@ -2,6 +2,8 @@ package medicalstuff.general.medicalpackets.packets;
 
 import static medicalstuff.general.medicalpackets.MedicalFactory.GET_JOURNAL_PACKET;
 
+import java.util.ArrayList;
+
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.data.ArrayPacket;
 import medicalstuff.general.connection.packets.data.IntPacket;
@@ -11,6 +13,7 @@ import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalModel;
 import medicalstuff.server.model.data.journal.Journal;
+import medicalstuff.server.model.data.journal.JournalEntry;
 
 public class GetJournalPacket extends OperatorPacket {
 	private MedicalModel model;
@@ -40,7 +43,17 @@ public class GetJournalPacket extends OperatorPacket {
 		ap.addPacket(new StringPacket(model.getUserName(journal.getNurse())));
 		ap.addPacket(new StringPacket(journal.getDate()));
 		
-		
+		ArrayPacket entryPacket = new ArrayPacket();
+		ArrayList<JournalEntry> entries = model.getJournalEntries(journal.getId());
+		for(JournalEntry je : entries) {
+			ArrayPacket temp = new ArrayPacket();
+			temp.addPacket(new StringPacket(model.getUserName(je.getUser())));
+			temp.addPacket(new StringPacket(je.getTimeStamp()));
+			temp.addPacket(new StringPacket(je.getData()));
+			
+			entryPacket.addPacket(temp);
+		}
+		ap.addPacket(entryPacket);
 		
 		ResponsePacket rp = new ResponsePacket(ap);
 		return rp;
