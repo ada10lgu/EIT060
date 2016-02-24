@@ -22,13 +22,11 @@ public class MedicalStuff extends JPanel implements ActionListener {
 		
 		setLayout(new BorderLayout());
 		
-		add(new JournalList(model),BorderLayout.WEST);
-		add(new JournalPane(model),BorderLayout.CENTER);
+		JournalPane jp = new JournalPane(model);
+		JournalList jl = new JournalList(model,jp);
 		
-//		JButton button = new JButton("Log out");
-//		button.addActionListener(this);
-//		add(button);
-//		add(new ChatBox(model));
+		add(jl,BorderLayout.WEST);
+		add(jp,BorderLayout.CENTER);
 	}
 
 	@Override

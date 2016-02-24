@@ -14,6 +14,6 @@ public class JournalPane extends JPanel {
 	}
 	
 	public void setJournal(JournalInfo ji) {
-		
+		System.out.println("Active: " + ji);
 	}
 }
