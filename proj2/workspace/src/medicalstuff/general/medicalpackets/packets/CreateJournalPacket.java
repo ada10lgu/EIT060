@@ -13,26 +13,23 @@ public class CreateJournalPacket extends OperatorPacket {
 
 	private MedicalModel model;
 	private StringPacket patient;
-	private StringPacket doctor;
 	private StringPacket nurse;
 
-	public CreateJournalPacket(String patient, String doctor, String nurse) {
+	public CreateJournalPacket(String patient,String nurse) {
 		this.patient = new StringPacket(patient);
-		this.doctor = new StringPacket(doctor);
 		this.nurse = new StringPacket(nurse);
 	}
 
 	public CreateJournalPacket(byte[] data, Packet[] packets, MedicalModel model) {
 		patient = (StringPacket) packets[0];
-		doctor = (StringPacket) packets[1];
-		nurse = (StringPacket) packets[2];
+		nurse = (StringPacket) packets[1];
 		this.model = model;
 	}
 
 
 	@Override
 	public OperatorPacket perform() {
-		boolean b = model.createJournal(patient.toString(), doctor.toString(), nurse.toString());
+		boolean b = model.createJournal(patient.toString(), nurse.toString());
 		return new ResponsePacket(new BooleanPacket(b));
 	}
 
@@ -43,7 +40,7 @@ public class CreateJournalPacket extends OperatorPacket {
 
 	@Override
 	protected Packet[] getPackages() {
-		return new Packet[] {patient, doctor, nurse};
+		return new Packet[] {patient, nurse};
 	}
 
 	@Override

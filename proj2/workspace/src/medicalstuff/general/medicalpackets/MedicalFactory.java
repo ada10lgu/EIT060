@@ -4,6 +4,7 @@ import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.factory.PacketFactory;
 import medicalstuff.general.medicalpackets.packets.CreateJournalPacket;
 import medicalstuff.general.medicalpackets.packets.GetJournalPacket;
+import medicalstuff.general.medicalpackets.packets.GetNursesPacket;
 import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
@@ -16,7 +17,8 @@ public class MedicalFactory implements PacketFactory {
 	public static final byte JOURNAL_LIST_PACKET = 13;
 	public static final byte GET_PATIENTS_PACKET = 14;
 	public static final byte CREATE_JOURNAL_PACKET = 15;
-	public static final byte GET_JOURNAL_PACKET = 16;
+	public static final byte GET_NURSES_PACKET = 16;
+	public static final byte GET_JOURNAL_PACKET = 17;
 
 	private MedicalModel model;
 
@@ -43,9 +45,11 @@ public class MedicalFactory implements PacketFactory {
 		case CREATE_JOURNAL_PACKET:
 			p = new CreateJournalPacket(data, packets, model);
 			break;
+		case GET_NURSES_PACKET:
+			p = new GetNursesPacket(data, packets, model);
+			break;
 		case GET_JOURNAL_PACKET:
 			p = new GetJournalPacket(data, packets, model);
-			break;
 		}
 		return p;
 	}

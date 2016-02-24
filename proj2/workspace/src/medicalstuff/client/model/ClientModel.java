@@ -21,6 +21,7 @@ import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.packets.CreateJournalPacket;
+import medicalstuff.general.medicalpackets.packets.GetNursesPacket;
 import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
@@ -117,8 +118,8 @@ public class ClientModel extends Observable {
 		return patients;
 	}
 
-	public boolean createJournal(String patient) {
-		CreateJournalPacket cjp = new CreateJournalPacket(patient);
+	public boolean createJournal(String patient,String nurse) {
+		CreateJournalPacket cjp = new CreateJournalPacket(patient,nurse);
 		byte id = connection.send(cjp);
 		ResponsePacket rp = (ResponsePacket) connection.waitForReply(id);
 		BooleanPacket bp = (BooleanPacket) rp.getPacket();
@@ -141,5 +142,28 @@ public class ClientModel extends Observable {
 			journals.add(ji);
 		}
 		return journals;
+	}
+
+	public void setActiveJournal(int id) {
+		
+	}
+
+	public ArrayList<String[]> getNurses() {
+		ArrayList<String[]> patients = new ArrayList<String[]>();
+
+		byte id = connection.send(new GetNursesPacket());
+
+		OperatorPacket op = connection.waitForReply(id);
+		ResponsePacket rp = (ResponsePacket) op;
+		ArrayPacket ap = (ArrayPacket) rp.getPacket();
+
+		for (Packet p : ap) {
+			ArrayPacket apInner = (ArrayPacket) p;
+			String[] patient = new String[2];
+			patient[0] = ((StringPacket) apInner.get(0)).toString();
+			patient[1] = ((StringPacket) apInner.get(1)).toString();
+			patients.add(patient);
+		}
+		return patients;
 	}
 }

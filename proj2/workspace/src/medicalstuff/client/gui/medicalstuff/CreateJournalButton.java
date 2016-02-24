@@ -23,27 +23,34 @@ public class CreateJournalButton extends JButton implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		ArrayList<String[]> data = model.getPatients();
-
-		PatientInfo[] choices = new PatientInfo[data.size()];
-		for (int i = 0; i < data.size(); i++) {
-			PatientInfo p = new PatientInfo(data.get(i));
-			choices[i] = p;
+		UserInfo patient = selectUser(model.getPatients(), "Choose patient");
+		if (patient != null) {
+			UserInfo nurse = selectUser(model.getNurses(), "Choose nurse");
+			if (nurse != null) {
+				if (!model.createJournal(patient.getSerial(),nurse.getSerial()))
+					JOptionPane.showMessageDialog(null,
+							"Could not create Journal");
+			}
 		}
 
-		PatientInfo input = (PatientInfo) JOptionPane.showInputDialog(null,
-				"Choose patient", "Create Journal",
-				JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
-		if (input != null) {
-			if (!model.createJournal(input.getSerial()))
-				JOptionPane.showMessageDialog(null, "Could not create Journal");
-		}
 	}
 
-	private class PatientInfo {
+	private UserInfo selectUser(ArrayList<String[]> users, String message) {
+		UserInfo[] choices = new UserInfo[users.size()];
+		for (int i = 0; i < users.size(); i++) {
+			UserInfo p = new UserInfo(users.get(i));
+			choices[i] = p;
+		}
+		UserInfo user = (UserInfo) JOptionPane.showInputDialog(null, message,
+				"Create Journal", JOptionPane.QUESTION_MESSAGE, null, choices,
+				choices[0]);
+		return user;
+	}
+
+	private class UserInfo {
 		private String patientName, patientSerial;
 
-		public PatientInfo(String[] patientInfo) {
+		public UserInfo(String[] patientInfo) {
 			patientName = patientInfo[0];
 			patientSerial = patientInfo[1];
 		}

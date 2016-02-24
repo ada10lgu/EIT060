@@ -20,10 +20,10 @@ public class JournalList extends JPanel implements MouseListener, KeyListener {
 	private ClientModel model;
 	private JournalPane pane;
 	private JList<JournalInfo> myList;
-	
+
 	private int oldHash;
 
-	public JournalList(ClientModel model,JournalPane pane) {
+	public JournalList(ClientModel model, JournalPane pane) {
 		this.model = model;
 		this.pane = pane;
 		myList = new JList<JournalInfo>();
@@ -36,14 +36,13 @@ public class JournalList extends JPanel implements MouseListener, KeyListener {
 		add(myList, BorderLayout.CENTER);
 		new JournalListUpdater().start();
 	}
-
+	
 	public synchronized void update() {
 		ArrayList<JournalInfo> journals = model.getJournals();
 		JournalInfo[] temp = new JournalInfo[journals.size()];
 		for (int i = 0; i < journals.size(); i++) {
 			temp[i] = journals.get(i);
 		}
-
 		int newHash = journals.hashCode();
 		if (newHash != oldHash) {
 			remove(myList);
@@ -98,13 +97,17 @@ public class JournalList extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
-			System.out.println("hej");
+		if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+			@SuppressWarnings("unchecked")
+			JList<JournalInfo> list = (JList<JournalInfo>) arg0.getSource();
+			JournalInfo ji = list.getSelectedValue();
+			pane.setJournal(ji);
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		
+
 	}
 
 	@Override

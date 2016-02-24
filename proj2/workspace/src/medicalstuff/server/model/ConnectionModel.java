@@ -12,6 +12,7 @@ import javax.security.cert.X509Certificate;
 import medicalstuff.general.connection.SecureClient;
 import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.MedicalModel;
+import medicalstuff.server.model.data.journal.Journal;
 import medicalstuff.server.model.data.journal.JournalSnippet;
 import medicalstuff.server.model.data.user.User;
 
@@ -62,11 +63,21 @@ public class ConnectionModel implements MedicalModel {
 
 	@Override
 	public ArrayList<String[]> getPatients() {
-		return superModel.getPatients();
+		return superModel.getUsers(3);
 	}
 
 	@Override
-	public boolean createJournal(String patient, String doctor, String nurse) {
-		return superModel.createJournal(user, patient, doctor, nurse);
+	public boolean createJournal(String patient, String nurse) {
+		return superModel.createJournal(user, patient, user[0], nurse);
+	}
+
+	@Override
+	public ArrayList<String[]> getNurses() {
+		return superModel.getUsers(2);
+	}
+
+	@Override
+	public Journal getJournal(int id) {
+		return superModel.getJournal(user, id);
 	}
 }
