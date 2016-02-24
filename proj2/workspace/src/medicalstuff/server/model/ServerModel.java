@@ -16,6 +16,8 @@ import javax.net.ssl.SSLSocket;
 import medicalstuff.general.connection.ConnectionHandler;
 import medicalstuff.general.connection.SecureServer;
 import medicalstuff.server.model.data.journal.Journal;
+import medicalstuff.server.model.data.journal.JournalEntry;
+import medicalstuff.server.model.data.journal.JournalEntryList;
 import medicalstuff.server.model.data.journal.JournalList;
 import medicalstuff.server.model.data.journal.JournalSnippet;
 import medicalstuff.server.model.data.log.Logger;
@@ -27,6 +29,7 @@ public class ServerModel implements ConnectionHandler {
 	private SecureServer ss;
 	private UserList users;
 	private JournalList journals;
+	private JournalEntryList journalEntries;
 	private Logger logger;
 
 	public ServerModel(int port, File keystore, File truststore, char[] password, boolean verbose)
@@ -44,6 +47,10 @@ public class ServerModel implements ConnectionHandler {
 		System.out.print("Loading journals...\t");
 		journals = new JournalList();
 		System.out.println("loaded " + journals.size() + " journals");
+		
+		System.out.print("Loading journal entries...\t");
+		journalEntries = new JournalEntryList();
+		System.out.println("loaded " + journalEntries.size() + " journal entries");
 
 		try {
 			ss = new SecureServer(port, this, keystore, truststore, password, verbose);
@@ -84,6 +91,10 @@ public class ServerModel implements ConnectionHandler {
 		// 
 		return null;
 	}
+	
+	public ArrayList<JournalEntry> getJournalEntries(int journalId) {
+		return journalEntries.getEntries(journalId);
+	}
 
 	public void loglogin(String[] user) {
 		logger.log(user[0], "-1", "logged in", user[1]);
@@ -96,6 +107,10 @@ public class ServerModel implements ConnectionHandler {
 
 	public ArrayList<String[]> getUsers(int group) {
 		return users.getUsers(group);
+	}
+	
+	public String getUserName(String userSerial) {
+		return users.getUser(userSerial).getName();
 	}
 
 	public boolean createJournal(String[] user, String patient, String doctor, String nurse) {

@@ -22,11 +22,11 @@ public class JournalEntry {
 		return data.get(2);
 	}
 
-	public String getDate() {
+	public String getTimeStamp() {
 		return data.get(3);
 	}
 
-	public String getEntry() {
+	public String getData() {
 		return data.get(4);
 	}
 }

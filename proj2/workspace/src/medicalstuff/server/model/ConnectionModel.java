@@ -13,6 +13,7 @@ import medicalstuff.general.connection.SecureClient;
 import medicalstuff.general.medicalpackets.MedicalFactory;
 import medicalstuff.general.medicalpackets.MedicalModel;
 import medicalstuff.server.model.data.journal.Journal;
+import medicalstuff.server.model.data.journal.JournalEntry;
 import medicalstuff.server.model.data.journal.JournalSnippet;
 import medicalstuff.server.model.data.user.User;
 
@@ -64,6 +65,14 @@ public class ConnectionModel implements MedicalModel {
 	@Override
 	public ArrayList<String[]> getPatients() {
 		return superModel.getUsers(3);
+	}
+	
+	public String getUserName(String userSerial) {
+		return superModel.getUserName(userSerial);
+	}
+	
+	public ArrayList<JournalEntry> getJournalEntries(int journalId) {
+		return superModel.getJournalEntries(journalId);
 	}
 
 	@Override
