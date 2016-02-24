@@ -1,19 +1,42 @@
 package medicalstuff.general.medicalpackets.packets;
 
-import medicalstuff.general.connection.packets.Packet;
-import medicalstuff.general.connection.packets.operands.OperatorPacket;
-import medicalstuff.general.medicalpackets.MedicalModel;
 import static medicalstuff.general.medicalpackets.MedicalFactory.GET_JOURNAL_PACKET;
+
+import medicalstuff.general.connection.packets.Packet;
+import medicalstuff.general.connection.packets.data.ArrayPacket;
+import medicalstuff.general.connection.packets.data.IntPacket;
+import medicalstuff.general.connection.packets.data.StringPacket;
+import medicalstuff.general.connection.packets.operands.OperatorPacket;
+import medicalstuff.general.connection.packets.operands.ResponsePacket;
+import medicalstuff.general.medicalpackets.MedicalModel;
+import medicalstuff.server.model.data.journal.Journal;
 
 public class GetJournalPacket extends OperatorPacket {
 	private MedicalModel model;
+	private int journalId;
+	
+	public GetJournalPacket(int journalId) {
+		this.journalId = journalId;
+	}
+	
+	
 	public GetJournalPacket(byte[] data, Packet[] packets, MedicalModel model) {
 		this.model = model;
 	}
 	
 	@Override
 	public OperatorPacket perform() {
+		Journal journal = model.getJournal(journalId);
 		
+		ArrayPacket ap = new ArrayPacket();
+		ap.addPacket(new IntPacket(journal.getId()));
+		ap.addPacket(new StringPacket(journal.getPatient()));
+		ap.addPacket(new StringPacket(journal.getDoctor()));
+		ap.addPacket(new StringPacket(journal.getNurse()));
+		ap.addPacket(new StringPacket(journal.getDate()));
+		
+		ResponsePacket rp = new ResponsePacket(ap);
+		return rp;	
 	}
 
 	@Override
