@@ -26,7 +26,7 @@ public class LoginPacket extends OperatorPacket {
 		User u = model.login();
 		if (u == null)
 			return new NullPacket();
-		return new ResponsePacket(new UserPacket(u.getName()));
+		return new ResponsePacket(new UserPacket(u.getName(), u.getSerial(), u.getGroup()));
 	}
 
 	@Override

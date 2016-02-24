@@ -25,8 +25,9 @@ public class JournalList extends JPanel implements MouseListener {
 		setBorder(BorderFactory.createTitledBorder(""));
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(200, 100));
-
-		add(new CreateJournalButton(model), BorderLayout.NORTH);
+		if(model.getGroup() == 1) {
+			add(new CreateJournalButton(model), BorderLayout.NORTH);
+		}
 		add(myList, BorderLayout.CENTER);
 		new JournalListUpdater().start();
 	}
