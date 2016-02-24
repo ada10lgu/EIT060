@@ -99,5 +99,4 @@ public class ServerModel implements ConnectionHandler {
 		logger.log(user[0], patient, "created journal", user[1]);
 		return b;
 	}
-
 }

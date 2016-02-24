@@ -33,6 +33,8 @@ public class ClientModel extends Observable {
 	private String certFolder;
 
 	private String name;
+	private String serial;
+	private int group;
 
 	private SecureClient connection;
 
@@ -54,6 +56,8 @@ public class ClientModel extends Observable {
 			ResponsePacket rp = (ResponsePacket) op;
 			UserPacket up = (UserPacket) rp.getPacket();
 			name = up.getName();
+			serial = up.getSerial();
+			group = up.getGroup();
 
 			setChanged();
 			notifyObservers();
@@ -80,6 +84,14 @@ public class ClientModel extends Observable {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getSerial() {
+		return serial;
+	}
+
+	public int getGroup() {
+		return group;
 	}
 
 	public HashMap<String, String> getServerInfo() {
