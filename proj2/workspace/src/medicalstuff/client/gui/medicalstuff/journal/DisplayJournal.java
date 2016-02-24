@@ -1,6 +1,7 @@
 package medicalstuff.client.gui.medicalstuff.journal;
 
-import javax.swing.JLabel;
+import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
 
 import medicalstuff.client.model.ClientModel;
@@ -10,21 +11,24 @@ import medicalstuff.client.model.Journal;
 public class DisplayJournal extends JPanel {
 
 	private ClientModel model;
+	private JournalHeaderPane header;
 
 	public DisplayJournal(ClientModel model) {
 		this.model = model;
-		add(new JLabel("fdsjk"));
+		header = new JournalHeaderPane();
+		
+		setLayout(new BorderLayout());
+		add(header,BorderLayout.NORTH);
+
 		new JournalUpdater().start();
-		update();
 	}
-	
-	private synchronized void update() {
-		
+
+	private synchronized void update(Journal j) {
+		header.setJournal(j);
 	}
-	
-	
+
 	private class JournalUpdater extends Thread {
-		
+
 		@Override
 		public void run() {
 			int lastHash = -1;
@@ -34,8 +38,7 @@ public class DisplayJournal extends JPanel {
 				if (j != null)
 					hash = j.hashCode();
 				if (hash != lastHash) {
-					System.out.println(hash);
-					update();
+					update(j);
 					updateUI();
 				}
 				lastHash = hash;
