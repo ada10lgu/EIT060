@@ -62,8 +62,8 @@ public class ClientGUI extends JFrame implements Observer {
 				setResizable(false);
 			}
 			setPreferredSize(d);
-			setMaximumSize(d);
 			setMinimumSize(d);
+			setMaximumSize(d);
 			main.updateUI();
 			main.repaint();
 		}

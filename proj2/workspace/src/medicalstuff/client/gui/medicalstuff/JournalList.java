@@ -16,11 +16,14 @@ import medicalstuff.client.model.JournalInfo;
 @SuppressWarnings("serial")
 public class JournalList extends JPanel implements MouseListener {
 	private ClientModel model;
+	private JournalPane pane;
 	private JList<JournalInfo> myList;
+	
 	private int oldHash;
 
-	public JournalList(ClientModel model) {
+	public JournalList(ClientModel model,JournalPane pane) {
 		this.model = model;
+		this.pane = pane;
 		myList = new JList<JournalInfo>();
 		setBorder(BorderFactory.createTitledBorder(""));
 		setLayout(new BorderLayout());
@@ -69,7 +72,7 @@ public class JournalList extends JPanel implements MouseListener {
 		JList<JournalInfo> list = (JList<JournalInfo>) evt.getSource();
 		if (evt.getClickCount() == 2) {
 			JournalInfo ji = list.getSelectedValue();
-			System.out.println(ji);
+			pane.setJournal(ji);
 		}
 	}
 
