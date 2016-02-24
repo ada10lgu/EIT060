@@ -90,8 +90,8 @@ public class ServerModel implements ConnectionHandler {
 		logger.log(serial, "-1", "unknown user (" + info + ")", s.getInetAddress().toString());
 	}
 
-	public ArrayList<String[]> getPatients() {
-		return users.getUsers(3);
+	public ArrayList<String[]> getUsers(int group) {
+		return users.getUsers(group);
 	}
 
 	public boolean createJournal(String[] user, String patient) {

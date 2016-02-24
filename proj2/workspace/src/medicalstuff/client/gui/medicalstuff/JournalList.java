@@ -36,14 +36,13 @@ public class JournalList extends JPanel implements MouseListener, KeyListener {
 		add(myList, BorderLayout.CENTER);
 		new JournalListUpdater().start();
 	}
-
+	
 	public synchronized void update() {
 		ArrayList<JournalInfo> journals = model.getJournals();
 		JournalInfo[] temp = new JournalInfo[journals.size()];
 		for (int i = 0; i < journals.size(); i++) {
 			temp[i] = journals.get(i);
 		}
-
 		int newHash = journals.hashCode();
 		if (newHash != oldHash) {
 			remove(myList);
