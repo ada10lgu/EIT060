@@ -41,6 +41,4 @@ public class JournalPane extends JPanel {
 		add(new DisplayJournal(j));
 		updateUI();
 	}
-	
-	
 }

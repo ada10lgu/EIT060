@@ -14,7 +14,7 @@ public class Logger {
 	private CSV csv;
 	
 	public Logger() throws IOException{
-		csv = new CSV(new File("data/logfire"));
+		csv = new CSV(new File("data/logfile"));
 
 	}
 	public synchronized void log(String user, String patient, String action,String ip){
