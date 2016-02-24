@@ -33,10 +33,13 @@ public class GetJournalPacket extends OperatorPacket {
 		
 		ArrayPacket ap = new ArrayPacket();
 		ap.addPacket(new StringPacket(Integer.toString(journal.getId())));
+		
 		ap.addPacket(new StringPacket(journal.getPatient()));
 		ap.addPacket(new StringPacket(journal.getDoctor()));
 		ap.addPacket(new StringPacket(journal.getNurse()));
 		ap.addPacket(new StringPacket(journal.getDate()));
+		
+		
 		
 		ResponsePacket rp = new ResponsePacket(ap);
 		return rp;

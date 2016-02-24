@@ -65,6 +65,10 @@ public class ConnectionModel implements MedicalModel {
 	public ArrayList<String[]> getPatients() {
 		return superModel.getUsers(3);
 	}
+	
+	public String getUserName(String userSerial) {
+		return superModel.getUserName(userSerial);
+	}
 
 	@Override
 	public boolean createJournal(String patient, String nurse) {

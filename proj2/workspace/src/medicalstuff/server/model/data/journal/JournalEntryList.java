@@ -17,12 +17,12 @@ public class JournalEntryList {
 		csv = new CSV(new File("data/journalentries"));
 
 		journalEntries = new ArrayList<>();
-		
-		for(ArrayList<String> data : csv.getData()) {
+
+		for (ArrayList<String> data : csv.getData()) {
 			journalEntries.add(new JournalEntry(data));
 		}
 	}
-	
+
 	public synchronized boolean addEntry(String journalId, String user, String entry) {
 		ArrayList<String> data = new ArrayList<>();
 		data.add(getNewId());
@@ -31,15 +31,15 @@ public class JournalEntryList {
 		data.add(getDateTime());
 		data.add(entry);
 		csv.getData().add(data);
-		try{
+		try {
 			csv.save();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			return false;
 		}
 		journalEntries.add(new JournalEntry(data));
 		return true;
 	}
-	
+
 	private String getNewId() {
 		int id = -1;
 		int size = csv.getData().size();
@@ -49,11 +49,22 @@ public class JournalEntryList {
 		id++;
 		return "" + id;
 	}
-	
-	//TODO: Duplicated code, move to static class?
+
+	// TODO: Duplicated code, move to static class?
 	private String getDateTime() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		return dateFormat.format(date);
+	}
+
+	public int size() {
+		return journalEntries.size();
+	}
+	
+	public ArrayList<JournalEntry> getEntries(int journalId) {
+		ArrayList<JournalEntry> temp = new ArrayList<JournalEntry>();
+		for(JournalEntry je : journalEntries) {
+			
+		}
 	}
 }
