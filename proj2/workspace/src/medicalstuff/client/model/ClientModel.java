@@ -154,15 +154,12 @@ public class ClientModel extends Observable {
 		OperatorPacket op = connection.waitForReply(id);
 		ResponsePacket rp = (ResponsePacket) op;
 		ArrayPacket ap = (ArrayPacket) rp.getPacket();
-		System.out.println(ap);
-//		ArrayList<String> data = new ArrayList<String>();
-//		data.add(((StringPacket) ap.get(0)).toString());
-//		data.add(((StringPacket) ap.get(1)).toString());
-//		data.add(((StringPacket) ap.get(2)).toString());
-//		data.add(((StringPacket) ap.get(3)).toString());
-//		data.add(((StringPacket) ap.get(4)).toString());
-//		
-		Journal j = new Journal();
+		int journalID  = ((IntPacket) ap.get(0)).toInt();
+		String patient = ((StringPacket) ap.get(1)).toString();
+		String doctor = ((StringPacket) ap.get(2)).toString();
+		String nurse = ((StringPacket) ap.get(3)).toString();
+		String created = ((StringPacket) ap.get(4)).toString();
+		Journal j = new Journal(journalID,patient, doctor, nurse,created);
 		return j;
 	}
 	

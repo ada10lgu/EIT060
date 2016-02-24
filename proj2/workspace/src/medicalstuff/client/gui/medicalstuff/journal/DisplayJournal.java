@@ -27,13 +27,14 @@ public class DisplayJournal extends JPanel {
 		
 		@Override
 		public void run() {
+			int lastHash = -1;
 			while (!isInterrupted()) {
-				int lastHash = -1;
 				Journal j = model.getJournal();
 				int hash = -1;
 				if (j != null)
 					hash = j.hashCode();
 				if (hash != lastHash) {
+					System.out.println(hash);
 					update();
 					updateUI();
 				}

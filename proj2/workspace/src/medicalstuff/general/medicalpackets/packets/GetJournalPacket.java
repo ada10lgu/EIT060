@@ -29,7 +29,7 @@ public class GetJournalPacket extends OperatorPacket {
 		Journal journal = model.getJournal(journalId);
 		
 		ArrayPacket ap = new ArrayPacket();
-		ap.addPacket(new StringPacket(Integer.toString(journal.getId())));
+		ap.addPacket(new IntPacket(journal.getId()));
 		ap.addPacket(new StringPacket(journal.getPatient()));
 		ap.addPacket(new StringPacket(journal.getDoctor()));
 		ap.addPacket(new StringPacket(journal.getNurse()));
