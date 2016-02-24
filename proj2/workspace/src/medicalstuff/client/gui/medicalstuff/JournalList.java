@@ -2,6 +2,8 @@ package medicalstuff.client.gui.medicalstuff;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import medicalstuff.client.model.ClientModel;
 import medicalstuff.client.model.JournalInfo;
 
 @SuppressWarnings("serial")
-public class JournalList extends JPanel implements MouseListener {
+public class JournalList extends JPanel implements MouseListener, KeyListener {
 	private ClientModel model;
 	private JournalPane pane;
 	private JList<JournalInfo> myList;
@@ -46,6 +48,7 @@ public class JournalList extends JPanel implements MouseListener {
 			remove(myList);
 			myList = new JList<JournalInfo>(temp);
 			myList.addMouseListener(this);
+			myList.addKeyListener(this);
 			add(myList, BorderLayout.CENTER);
 			updateUI();
 			oldHash = newHash;
@@ -90,5 +93,20 @@ public class JournalList extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
+			System.out.println("hej");
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
 	}
 }
