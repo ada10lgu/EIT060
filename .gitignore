@@ -1,3 +1,5 @@
 *.pem
 *.class
 .classpath
+*.cer
+*.csr
