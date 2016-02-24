@@ -30,7 +30,7 @@ public class UserPacket extends Packet {
 
 	@Override
 	protected Packet[] getPackages() {
-		return new Packet[] { user };
+		return new Packet[] { user, serial, group };
 	}
 
 	public String getName() {
