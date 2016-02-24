@@ -21,6 +21,5 @@ public class MedicalServer {
 		File truststore = new File("certs/server_trust");
 
 		new ServerModel(port, keystore, truststore, password, false);
-
 	}
 }

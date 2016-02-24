@@ -118,8 +118,8 @@ public class ClientModel extends Observable {
 		return patients;
 	}
 
-	public boolean createJournal(String patient) {
-		CreateJournalPacket cjp = new CreateJournalPacket(patient);
+	public boolean createJournal(String patient,String nurse) {
+		CreateJournalPacket cjp = new CreateJournalPacket(patient,nurse);
 		byte id = connection.send(cjp);
 		ResponsePacket rp = (ResponsePacket) connection.waitForReply(id);
 		BooleanPacket bp = (BooleanPacket) rp.getPacket();

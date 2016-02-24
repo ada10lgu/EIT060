@@ -94,8 +94,8 @@ public class ServerModel implements ConnectionHandler {
 		return users.getUsers(group);
 	}
 
-	public boolean createJournal(String[] user, String patient) {
-		boolean b = journals.addJournal(patient);
+	public boolean createJournal(String[] user, String patient, String doctor, String nurse) {
+		boolean b = journals.addJournal(patient, doctor, nurse);
 		logger.log(user[0], patient, "created journal", user[1]);
 		return b;
 	}

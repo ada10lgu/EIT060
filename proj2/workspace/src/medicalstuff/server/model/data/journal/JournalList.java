@@ -24,10 +24,12 @@ public class JournalList {
 			journals.add(new Journal(data));
 	}
 
-	public synchronized boolean addJournal(String patient) {
+	public synchronized boolean addJournal(String patient, String doctor, String nurse) {
 		ArrayList<String> data = new ArrayList<>();
-		data.add(getNewID());
+		data.add(getNewId());
 		data.add(patient);
+		data.add(doctor);
+		data.add(nurse);
 		data.add(getDateTime());
 		csv.getData().add(data);
 		try {
@@ -43,13 +45,13 @@ public class JournalList {
 	public ArrayList<JournalSnippet> getJournals() {
 		ArrayList<JournalSnippet> snippets = new ArrayList<>();
 		for (Journal j : journals)
-			snippets.add(new JournalSnippet(j.getPatient(), j.getID()));
+			snippets.add(new JournalSnippet(j.getPatient(), j.getId()));
 		return snippets;
 	}
 
 	public Journal getJournal(int id) {
 		for (Journal j : journals)
-			if (j.getID() == id)
+			if (j.getId() == id)
 				return j;
 		return null;
 	}
@@ -58,7 +60,7 @@ public class JournalList {
 		return journals.size();
 	}
 
-	private String getNewID() {
+	private String getNewId() {
 		int id = -1;
 		int size = csv.getData().size();
 		if (size != 0) {
@@ -68,10 +70,10 @@ public class JournalList {
 		return "" + id;
 	}
 
+	// TODO: Duplicated code, move to static class?
 	private String getDateTime() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		return dateFormat.format(date);
-
 	}
 }

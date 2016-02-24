@@ -27,7 +27,7 @@ public class CreateJournalButton extends JButton implements ActionListener {
 		if (patient != null) {
 			UserInfo nurse = selectUser(model.getNurses(), "Choose nurse");
 			if (nurse != null) {
-				if (!model.createJournal(patient.getSerial()))
+				if (!model.createJournal(patient.getSerial(),nurse.getSerial()))
 					JOptionPane.showMessageDialog(null,
 							"Could not create Journal");
 			}
