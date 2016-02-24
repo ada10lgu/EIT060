@@ -17,6 +17,6 @@ public class JournalPane extends JPanel {
 	}
 	
 	public void setJournal(JournalInfo ji) {
-		model.setActiveJournal(ji.getID());
+		model.getJournal(ji.getID());
 	}
 }

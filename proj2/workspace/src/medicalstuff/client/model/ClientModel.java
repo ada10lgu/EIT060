@@ -144,8 +144,8 @@ public class ClientModel extends Observable {
 		return journals;
 	}
 
-	public void setActiveJournal(int id) {
-		
+	public Journal getJournal(int id) {
+		return new Journal();
 	}
 
 	public ArrayList<String[]> getNurses() {
