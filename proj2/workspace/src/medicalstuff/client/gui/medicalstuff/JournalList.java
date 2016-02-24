@@ -2,6 +2,8 @@ package medicalstuff.client.gui.medicalstuff;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -12,7 +14,7 @@ import medicalstuff.client.model.ClientModel;
 import medicalstuff.client.model.JournalInfo;
 
 @SuppressWarnings("serial")
-public class JournalList extends JPanel {
+public class JournalList extends JPanel implements MouseListener {
 	private ClientModel model;
 	private JList<JournalInfo> myList;
 	private int oldHash;
@@ -40,11 +42,11 @@ public class JournalList extends JPanel {
 		if (newHash != oldHash) {
 			remove(myList);
 			myList = new JList<JournalInfo>(temp);
+			myList.addMouseListener(this);
 			add(myList, BorderLayout.CENTER);
 			updateUI();
 			oldHash = newHash;
 		}
-
 	}
 
 	private class JournalListUpdater extends Thread {
@@ -59,5 +61,31 @@ public class JournalList extends JPanel {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent evt) {
+		@SuppressWarnings("unchecked")
+		JList<JournalInfo> list = (JList<JournalInfo>) evt.getSource();
+		if (evt.getClickCount() == 2) {
+			JournalInfo ji = list.getSelectedValue();
+			System.out.println(ji);
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
 	}
 }
