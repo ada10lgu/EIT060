@@ -27,7 +27,6 @@ import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
-import medicalstuff.server.model.data.journal.Journal;
 
 public class ClientModel extends Observable {
 

@@ -77,8 +77,12 @@ public class ServerModel implements ConnectionHandler {
 
 	public Journal getJournal(String[] user, int id) {
 		Journal j = journals.getJournal(id);
-		logger.log(user[0], j.getPatient(), "requested journal", user[1]);
-		return j;
+		if (user[0].equals(j.getDoctor()) || user[0].equals(j.getNurse()) || user[0].equals(j.getPatient())) {
+			logger.log(user[0], j.getPatient(), "requested journal", user[1]);
+			return j;
+		}
+		// 
+		return null;
 	}
 
 	public void loglogin(String[] user) {
@@ -95,6 +99,12 @@ public class ServerModel implements ConnectionHandler {
 	}
 
 	public boolean createJournal(String[] user, String patient, String doctor, String nurse) {
+		User u = getUser(doctor);
+		if (u.getGroup() != 1) {
+			// Only REAL doctors are allowed to create journals
+			return false;
+		}
+		
 		boolean b = journals.addJournal(patient, doctor, nurse);
 		logger.log(user[0], patient, "created journal", user[1]);
 		return b;

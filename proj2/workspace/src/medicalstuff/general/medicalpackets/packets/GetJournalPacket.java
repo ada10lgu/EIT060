@@ -4,8 +4,8 @@ import static medicalstuff.general.medicalpackets.MedicalFactory.GET_JOURNAL_PAC
 
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.data.ArrayPacket;
-import medicalstuff.general.connection.packets.data.IntPacket;
 import medicalstuff.general.connection.packets.data.StringPacket;
+import medicalstuff.general.connection.packets.operands.NullPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalModel;
@@ -27,6 +27,9 @@ public class GetJournalPacket extends OperatorPacket {
 	@Override
 	public OperatorPacket perform() {
 		Journal journal = model.getJournal(journalId);
+		if (journal == null) {
+			return new NullPacket();
+		}
 		
 		ArrayPacket ap = new ArrayPacket();
 		ap.addPacket(new StringPacket(Integer.toString(journal.getId())));
@@ -36,7 +39,7 @@ public class GetJournalPacket extends OperatorPacket {
 		ap.addPacket(new StringPacket(journal.getDate()));
 		
 		ResponsePacket rp = new ResponsePacket(ap);
-		return rp;	
+		return rp;
 	}
 
 	@Override
