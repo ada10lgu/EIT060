@@ -10,7 +10,7 @@ public class JournalPane extends JPanel {
 
 	public JournalPane(ClientModel model) {
 		setBorder(BorderFactory.createTitledBorder(""));
-		
+
 		add(new ChatBox(model));
 	}
 }

@@ -3,7 +3,6 @@ package medicalstuff.general.medicalpackets.packets;
 import static medicalstuff.general.medicalpackets.MedicalFactory.GET_PATIENTS_PACKET;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.data.ArrayPacket;
