@@ -19,5 +19,7 @@ public interface MedicalModel {
 
 	public ArrayList<String[]> getNurses();
 	
+	public String getUserName(String userSerial);
+	
 	public boolean createJournal(String patient, String nurse);
 }

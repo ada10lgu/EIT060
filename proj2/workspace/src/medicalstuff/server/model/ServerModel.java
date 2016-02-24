@@ -91,8 +91,9 @@ public class ServerModel implements ConnectionHandler {
 		// 
 		return null;
 	}
+	
 	public ArrayList<JournalEntry> getJournalEntries(int journalId) {
-		ArrayList<JournalEntry> entries = journalEntries
+		return journalEntries.getEntries(journalId);
 	}
 
 	public void loglogin(String[] user) {

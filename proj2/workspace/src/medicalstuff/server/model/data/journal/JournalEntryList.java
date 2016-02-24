@@ -64,7 +64,10 @@ public class JournalEntryList {
 	public ArrayList<JournalEntry> getEntries(int journalId) {
 		ArrayList<JournalEntry> temp = new ArrayList<JournalEntry>();
 		for(JournalEntry je : journalEntries) {
-			
+			if(je.getJournalId() == journalId) {
+				temp.add(je);
+			}
 		}
+		return temp;
 	}
 }
