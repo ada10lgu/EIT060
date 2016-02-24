@@ -78,7 +78,7 @@ public class ServerModel implements ConnectionHandler {
 	public Journal getJournal(String[] user, int id) {
 		Journal j = journals.getJournal(id);
 		logger.log(user[0], j.getPatient(), "requested journal", user[1]);
-		return null;
+		return j;
 	}
 
 	public void loglogin(String[] user) {
