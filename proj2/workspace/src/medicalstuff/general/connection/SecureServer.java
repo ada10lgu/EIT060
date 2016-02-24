@@ -22,24 +22,16 @@ import javax.net.ssl.TrustManagerFactory;
 
 public class SecureServer extends Server {
 
-	public SecureServer(int port, ConnectionHandler ch, File keystore,
-			File truststore, char[] password, boolean verbose)
-			throws IOException, KeyManagementException,
-			UnrecoverableKeyException, KeyStoreException,
-			NoSuchAlgorithmException, CertificateException {
-		super(getSecureServer(port, keystore, truststore, password, verbose),
-				ch);
+	public SecureServer(int port, ConnectionHandler ch, File keystore, File truststore, char[] password,
+			boolean verbose) throws IOException, KeyManagementException, UnrecoverableKeyException, KeyStoreException,
+					NoSuchAlgorithmException, CertificateException {
+		super(getSecureServer(port, keystore, truststore, password, verbose), ch);
 	}
 
-	private static ServerSocket getSecureServer(int port, File keystore,
-			File truststore, char[] password, boolean verbose)
-			throws KeyStoreException, NoSuchAlgorithmException,
-			CertificateException, FileNotFoundException, IOException,
-			KeyManagementException, UnrecoverableKeyException {
-	
-		System.out.println(keystore);
-		System.out.println(truststore);
-		
+	private static ServerSocket getSecureServer(int port, File keystore, File truststore, char[] password,
+			boolean verbose) throws KeyStoreException, NoSuchAlgorithmException, CertificateException,
+					FileNotFoundException, IOException, KeyManagementException, UnrecoverableKeyException {
+
 		SSLServerSocketFactory ssf = null;
 		SSLContext ctx = SSLContext.getInstance("TLS");
 		KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");

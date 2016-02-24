@@ -29,10 +29,9 @@ public class ServerModel implements ConnectionHandler {
 	private JournalList journals;
 	private Logger logger;
 
-	public ServerModel(int port, File keystore, File truststore,
-			char[] password, boolean verbose) throws KeyManagementException,
-			UnrecoverableKeyException, KeyStoreException,
-			NoSuchAlgorithmException, CertificateException, IOException {
+	public ServerModel(int port, File keystore, File truststore, char[] password, boolean verbose)
+			throws KeyManagementException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
+			CertificateException, IOException {
 
 		System.out.print("Loading logfile...\t");
 		logger = new Logger();
@@ -47,12 +46,10 @@ public class ServerModel implements ConnectionHandler {
 		System.out.println("loaded " + journals.size() + " journals");
 
 		try {
-			ss = new SecureServer(port, this, keystore, truststore, password,
-					verbose);
+			ss = new SecureServer(port, this, keystore, truststore, password, verbose);
 			ss.start();
 		} catch (BindException e) {
-			System.out
-					.println("Could not start server since port is allready in use.");
+			System.out.println("Could not start server since port is allready in use.");
 			System.out.println("Terminating program.");
 			System.exit(-1);
 		}
@@ -72,29 +69,32 @@ public class ServerModel implements ConnectionHandler {
 	}
 
 	public ArrayList<JournalSnippet> getJournals() {
-		return journals.getJournals();
+		ArrayList<JournalSnippet> snippets = journals.getJournals();
+		for (JournalSnippet js : snippets)
+			js.setUser(users.getUser(js.getUser()).getName());
+		return snippets;
 	}
 
 	public Journal getJournal(String[] user, int id) {
 		Journal j = journals.getJournal(id);
-		logger.log(user[0], j.getPatient(), "requested journal",user[1]);
+		logger.log(user[0], j.getPatient(), "requested journal", user[1]);
 		return null;
 	}
 
 	public void loglogin(String[] user) {
-		logger.log(user[0], "-1", "logged in",user[1]);
+		logger.log(user[0], "-1", "logged in", user[1]);
 	}
 
-	public void loglogin(SSLSocket s,String serial) {
+	public void loglogin(SSLSocket s, String serial) {
 		String info = s.toString();
-		logger.log(serial, "-1", "unknown user ("+info+")",s.getInetAddress().toString());
+		logger.log(serial, "-1", "unknown user (" + info + ")", s.getInetAddress().toString());
 	}
 
 	public ArrayList<String[]> getPatients() {
 		return users.getUsers(3);
 	}
 
-	public boolean createJournal(String[]user ,String patient) {
+	public boolean createJournal(String[] user, String patient) {
 		boolean b = journals.addJournal(patient);
 		logger.log(user[0], patient, "created journal", user[1]);
 		return b;

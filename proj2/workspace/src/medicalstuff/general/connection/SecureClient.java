@@ -41,10 +41,7 @@ public class SecureClient extends Client {
 	private static SSLSocket createSocket(String addr, int port, File keystore, File truststore, char[] password)
 			throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException,
 			FileNotFoundException, IOException, KeyManagementException {
-		
-		System.out.println(keystore);
-		System.out.println(truststore);
-		
+
 		SSLSocketFactory factory = null;
 		KeyStore ks = KeyStore.getInstance("JKS");
 		KeyStore ts = KeyStore.getInstance("JKS");
@@ -53,18 +50,7 @@ public class SecureClient extends Client {
 		SSLContext ctx = SSLContext.getInstance("TLS");
 		ks.load(new FileInputStream(keystore), password);
 		ts.load(new FileInputStream(truststore), password);
-		
-		Enumeration<String> es = ks.aliases();
-		System.out.println("Key store:");
-		while (es.hasMoreElements())
-			System.out.println(es.nextElement());
 
-		es = ts.aliases();
-		System.out.println();
-		System.out.println("Trust store:");
-		while (es.hasMoreElements())
-			System.out.println(es.nextElement());
-		
 		kmf.init(ks, password);
 		tmf.init(ts);
 		ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);

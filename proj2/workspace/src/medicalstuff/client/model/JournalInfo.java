@@ -21,4 +21,9 @@ public class JournalInfo {
 	public String toString() {
 		return user;
 	}
+	
+	@Override
+	public int hashCode() {
+		return ("journalinfo-"+user+"-"+id).hashCode();
+	}
 }

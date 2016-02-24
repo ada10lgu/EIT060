@@ -77,10 +77,10 @@ class Connection {
 			} catch (IOException e) {
 				if (!socket.isClosed() || !e.getMessage().startsWith("EOF")
 						|| !e.getMessage().startsWith("Socket closed")) {
-					System.err.println("Error in connection! (recieveing)");
-					System.err.println(e.getMessage());
-					System.err.println(socket.isConnected());
-					System.err.println("------");
+//					System.err.println("Error in connection! (recieveing)");
+//					System.err.println(e.getMessage());
+//					System.err.println(socket.isConnected());
+//					System.err.println("------");
 				}
 				try {
 					close();
@@ -118,7 +118,7 @@ class Connection {
 				try {
 					close();
 				} catch (IOException e1) {
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 			}
 
