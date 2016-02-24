@@ -156,10 +156,11 @@ public class ClientModel extends Observable {
 		ArrayPacket ap = (ArrayPacket) rp.getPacket();
 		int journalID  = ((IntPacket) ap.get(0)).toInt();
 		String patient = ((StringPacket) ap.get(1)).toString();
-		String doctor = ((StringPacket) ap.get(2)).toString();
-		String nurse = ((StringPacket) ap.get(3)).toString();
-		String created = ((StringPacket) ap.get(4)).toString();
-		Journal j = new Journal(journalID,patient, doctor, nurse,created);
+		String pnr = ((StringPacket) ap.get(2)).toString();
+		String doctor = ((StringPacket) ap.get(3)).toString();
+		String nurse = ((StringPacket) ap.get(4)).toString();
+		String created = ((StringPacket) ap.get(5)).toString();
+		Journal j = new Journal(journalID,patient, pnr, doctor, nurse,created);
 		return j;
 	}
 	
