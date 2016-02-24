@@ -37,9 +37,7 @@ public class JournalList extends JPanel {
 		}
 
 		int newHash = journals.hashCode();
-
 		if (newHash != oldHash) {
-			System.out.println("update");
 			remove(myList);
 			myList = new JList<JournalInfo>(temp);
 			add(myList, BorderLayout.CENTER);
