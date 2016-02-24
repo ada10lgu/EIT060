@@ -12,8 +12,6 @@ import medicalstuff.client.model.Journal;
 @SuppressWarnings("serial")
 public class JournalHeaderPane extends JPanel {
 
-	private Journal j = null;;
-
 	private JLabel doctor;
 	private JLabel nurse;
 	private JLabel patient;
