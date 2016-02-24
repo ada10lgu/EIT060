@@ -20,4 +20,8 @@ public class User {
 	public int getGroup() {
 		return Integer.parseInt(data.get(3));
 	}
+	
+	public String getPersonalNumber() {
+		return data.get(1);
+	}
 }

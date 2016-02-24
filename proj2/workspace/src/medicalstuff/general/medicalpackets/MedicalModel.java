@@ -22,7 +22,10 @@ public interface MedicalModel {
 	
 	public String getUserName(String userSerial);
 	
+	public User getUser(String userSerial);
+	
 	public ArrayList<JournalEntry> getJournalEntries(int journalId);
 	 
 	public boolean createJournal(String patient, String nurse);
+	
 }
