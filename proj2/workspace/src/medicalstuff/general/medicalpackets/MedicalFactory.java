@@ -2,11 +2,13 @@ package medicalstuff.general.medicalpackets;
 
 import medicalstuff.general.connection.packets.Packet;
 import medicalstuff.general.connection.packets.factory.PacketFactory;
+import medicalstuff.general.medicalpackets.packets.AddJournalEntryPacket;
 import medicalstuff.general.medicalpackets.packets.CreateJournalPacket;
 import medicalstuff.general.medicalpackets.packets.GetNursesPacket;
 import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
+import medicalstuff.general.medicalpackets.packets.RemoveJournalPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
 
 public class MedicalFactory implements PacketFactory {
@@ -17,7 +19,9 @@ public class MedicalFactory implements PacketFactory {
 	public static final byte GET_PATIENTS_PACKET = 14;
 	public static final byte CREATE_JOURNAL_PACKET = 15;
 	public static final byte GET_NURSES_PACKET = 16;
-
+	public static final byte REMOVE_JOURNAL_PACKET = 17;
+	public static final byte ADD_JOURNAL_ENTRY_PACKET = 18;
+	
 	private MedicalModel model;
 
 	public MedicalFactory(MedicalModel model) {
@@ -45,6 +49,12 @@ public class MedicalFactory implements PacketFactory {
 			break;
 		case GET_NURSES_PACKET:
 			p = new GetNursesPacket(data, packets, model);
+			break;
+		case REMOVE_JOURNAL_PACKET:
+			p = new RemoveJournalPacket(data,packets,model);
+			break;
+		case ADD_JOURNAL_ENTRY_PACKET:
+			p = new AddJournalEntryPacket(data,packets,model);
 			break;
 		}
 		return p;
