@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import medicalstuff.general.csv.CSV;
 
@@ -61,12 +62,12 @@ public class JournalList {
 	}
 
 	private String getNewId() {
-		int id = -1;
+		int id = 2182;
 		int size = csv.getData().size();
 		if (size != 0) {
 			id = Integer.parseInt(csv.getData().get(size - 1).get(0));
 		}
-		id++;
+		id+=new Random().nextInt(20)+2;
 		return "" + id;
 	}
 

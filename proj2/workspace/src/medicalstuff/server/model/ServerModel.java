@@ -85,10 +85,9 @@ public class ServerModel implements ConnectionHandler {
 	public Journal getJournal(String[] user, int id) {
 		Journal j = journals.getJournal(id);
 		if (user[0].equals(j.getDoctor()) || user[0].equals(j.getNurse()) || user[0].equals(j.getPatient())) {
-			logger.log(user[0], j.getPatient(), "requested journal", user[1]);
+			logger.log(user[0], j.getPatient(), "requested journal #" + j.getId(), user[1]);
 			return j;
 		}
-		// 
 		return null;
 	}
 	

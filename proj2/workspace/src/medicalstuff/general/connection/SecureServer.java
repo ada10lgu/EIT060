@@ -11,6 +11,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.net.ssl.KeyManagerFactory;
@@ -22,10 +23,13 @@ import javax.net.ssl.TrustManagerFactory;
 
 public class SecureServer extends Server {
 
+	private boolean verbose;
+
 	public SecureServer(int port, ConnectionHandler ch, File keystore, File truststore, char[] password,
 			boolean verbose) throws IOException, KeyManagementException, UnrecoverableKeyException, KeyStoreException,
 					NoSuchAlgorithmException, CertificateException {
 		super(getSecureServer(port, keystore, truststore, password, verbose), ch);
+		this.verbose = verbose;
 	}
 
 	private static ServerSocket getSecureServer(int port, File keystore, File truststore, char[] password,
@@ -70,6 +74,12 @@ public class SecureServer extends Server {
 	public void run() {
 		System.out.println("Secure server started");
 		SSLServerSocket ss = (SSLServerSocket) super.ss;
+
+		if (verbose) {
+			String[] suits = ss.getEnabledCipherSuites();
+			System.out.println("Enabled chipher suits");
+			System.out.println(Arrays.toString(suits));
+		}
 
 		while (!isInterrupted()) {
 			try {

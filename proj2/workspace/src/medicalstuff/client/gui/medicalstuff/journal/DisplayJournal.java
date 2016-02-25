@@ -25,10 +25,10 @@ public class DisplayJournal extends JPanel {
 
 	private synchronized void update(Journal j) {
 		header.setJournal(j);
+		System.out.println("Update");
 	}
 
 	private class JournalUpdater extends Thread {
-
 		@Override
 		public void run() {
 			int lastHash = -1;

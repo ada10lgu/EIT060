@@ -26,6 +26,8 @@ public class GetJournalPacket extends OperatorPacket {
 	
 	public GetJournalPacket(byte[] data, Packet[] packets, MedicalModel model) {
 		this.model = model;
+		IntPacket ip = (IntPacket) packets[0];
+		journalId = ip.toInt();
 	}
 	
 	@Override
@@ -67,7 +69,7 @@ public class GetJournalPacket extends OperatorPacket {
 
 	@Override
 	protected Packet[] getPackages() {
-		return new Packet[0];
+		return new Packet[] {new IntPacket(journalId)};
 	}
 
 	@Override
