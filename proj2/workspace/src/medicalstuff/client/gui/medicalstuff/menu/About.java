@@ -19,13 +19,13 @@ public class About extends JMenuItem implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Medical Stuff\n");
-		sb.append("Version 0.1\n");
+		sb.append("Version 1.0\n");
 		sb.append("\n");
 		sb.append("\n");
 		sb.append("By:\n");
-		sb.append("David\n");
-		sb.append("Hanna\n");
-		sb.append("Hannes\n");
+		sb.append("David Norrestam (fys11dno)\n");
+		sb.append("Hanna Andreason (bte12han)\n");
+		sb.append("Hannes Fornell (cek11hfo)\n");
 		sb.append("Lars Gustafson (ada10lgu)\n");
 		
 		JOptionPane.showMessageDialog(null, sb.toString(),"About",JOptionPane.INFORMATION_MESSAGE);
