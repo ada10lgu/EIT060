@@ -126,7 +126,7 @@ public class ServerModel implements ConnectionHandler {
 	
 	public boolean addJournalEntry(String[] user, int journalId, String data) {
 		Journal j = journals.getJournal(journalId);
-		if(j.getNurse() == user[0] || j.getDoctor() == user[0]) {
+		if(j.getNurse().equals(user[0]) || j.getDoctor().equals(user[0])) {
 			return journalEntries.addEntry(journalId, user[0], data);
 		}
 		return false;

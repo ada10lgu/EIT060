@@ -28,7 +28,7 @@ import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
-import medicalstuff.server.model.data.journal.JournalEntry;
+
 
 public class ClientModel extends Observable {
 
@@ -40,9 +40,8 @@ public class ClientModel extends Observable {
 	private String name;
 	private String serial;
 	private int group;
-	
-	private int activeJournal = -1;
 
+	private int activeJournal = -1;
 
 	public ClientModel(String addr, int port, String certFolder) {
 		this.addr = addr;
@@ -123,8 +122,8 @@ public class ClientModel extends Observable {
 		return patients;
 	}
 
-	public boolean createJournal(String patient,String nurse) {
-		CreateJournalPacket cjp = new CreateJournalPacket(patient,nurse);
+	public boolean createJournal(String patient, String nurse) {
+		CreateJournalPacket cjp = new CreateJournalPacket(patient, nurse);
 		byte id = connection.send(cjp);
 		ResponsePacket rp = (ResponsePacket) connection.waitForReply(id);
 		BooleanPacket bp = (BooleanPacket) rp.getPacket();
@@ -156,16 +155,24 @@ public class ClientModel extends Observable {
 		OperatorPacket op = connection.waitForReply(id);
 		ResponsePacket rp = (ResponsePacket) op;
 		ArrayPacket ap = (ArrayPacket) rp.getPacket();
-		int journalID  = ((IntPacket) ap.get(0)).toInt();
+		int journalID = ((IntPacket) ap.get(0)).toInt();
 		String patient = ((StringPacket) ap.get(1)).toString();
 		String pnr = ((StringPacket) ap.get(2)).toString();
 		String doctor = ((StringPacket) ap.get(3)).toString();
 		String nurse = ((StringPacket) ap.get(4)).toString();
 		String created = ((StringPacket) ap.get(5)).toString();
-		Journal j = new Journal(journalID,patient, pnr, doctor, nurse,created);
+		ArrayList<JournalEntry> journalEntries = new ArrayList<JournalEntry>();
+		ArrayPacket entryArray = (ArrayPacket) ap.get(6);
+		for (Packet packet : entryArray) {
+			ArrayPacket entryPacket = (ArrayPacket) packet;
+			String userName = ((StringPacket) entryPacket.get(0)).toString();
+			String timeStamp = ((StringPacket) entryPacket.get(1)).toString();
+			String entry = ((StringPacket) entryPacket.get(2)).toString();
+			journalEntries.add(new JournalEntry(userName, timeStamp, entry));
+		}
+		Journal j = new Journal(journalID, patient, pnr, doctor, nurse, created, journalEntries);
 		return j;
 	}
-	
 
 	public ArrayList<String[]> getNurses() {
 		ArrayList<String[]> patients = new ArrayList<String[]>();
@@ -189,14 +196,14 @@ public class ClientModel extends Observable {
 	public void setActiveJournal(int activeJournal) {
 		this.activeJournal = activeJournal;
 	}
-	
+
 	public boolean addJournalEntry(int journalId, String data) {
 		byte id = connection.send(new AddJournalEntryPacket(journalId, data));
-		
+
 		OperatorPacket op = connection.waitForReply(id);
 		ResponsePacket rp = (ResponsePacket) op;
 		BooleanPacket bp = (BooleanPacket) rp.getPacket();
-		
+
 		return bp.toBoolean();
 	}
 }

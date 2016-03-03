@@ -2,12 +2,14 @@ package medicalstuff.client.gui.medicalstuff.journal;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import medicalstuff.client.model.Journal;
+import medicalstuff.client.model.JournalEntry;
 
 @SuppressWarnings("serial")
 public class JournalHeaderPane extends JPanel {

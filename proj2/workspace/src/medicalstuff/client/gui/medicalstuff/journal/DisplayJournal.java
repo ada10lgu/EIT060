@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import medicalstuff.client.gui.medicalstuff.JournalPane;
 import medicalstuff.client.model.ClientModel;
 import medicalstuff.client.model.Journal;
 
@@ -12,9 +13,11 @@ public class DisplayJournal extends JPanel {
 
 	private ClientModel model;
 	private JournalHeaderPane header;
+	private JournalPane jp;
 
-	public DisplayJournal(ClientModel model) {
+	public DisplayJournal(ClientModel model, JournalPane jp) {
 		this.model = model;
+		this.jp = jp;
 		header = new JournalHeaderPane();
 		
 		setLayout(new BorderLayout());
@@ -25,6 +28,7 @@ public class DisplayJournal extends JPanel {
 
 	private synchronized void update(Journal j) {
 		header.setJournal(j);
+		jp.setJournalEntries(j.getJournalEntries());
 		System.out.println("Update");
 	}
 
