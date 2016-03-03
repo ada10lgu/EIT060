@@ -19,10 +19,10 @@ public class DisplayJournal extends JPanel {
 		this.model = model;
 		header = new JournalHeaderPane();
 		text = new EntryListPane(model);
-		
+
 		setLayout(new BorderLayout());
-		add(header,BorderLayout.NORTH);
-		add(text,BorderLayout.CENTER);
+		add(header, BorderLayout.NORTH);
+		add(text, BorderLayout.CENTER);
 
 		new JournalUpdater().start();
 	}
