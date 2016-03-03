@@ -29,7 +29,7 @@ public class JournalEntryList {
 		data.add("" + journalId);
 		data.add(user);
 		data.add(getDateTime());
-		data.add(entry);
+		data.add(entry.replaceAll("\\n", "<br>"));
 		csv.getData().add(data);
 		try {
 			csv.save();
