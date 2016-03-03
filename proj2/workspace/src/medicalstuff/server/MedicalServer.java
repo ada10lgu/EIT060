@@ -14,6 +14,8 @@ import medicalstuff.server.model.ServerModel;
 public class MedicalServer {
 	public static void main(String[] args) {
 
+		boolean verbose = false;
+
 		HashMap<String, String> settings = new HashMap<>();
 		settings.put("certFolder", "certs/");
 		settings.put("password", "password");
@@ -26,6 +28,14 @@ public class MedicalServer {
 				System.exit(0);
 			}
 			String command = s.substring(1);
+			if (command.equalsIgnoreCase("verbose")) {
+				verbose = true;
+				continue;
+			}
+			if (i == args.length - 1) {
+				System.out.println("Missing data to command " + command);
+				System.exit(0);
+			}
 			String old = settings.put(command, args[++i]);
 			if (old == null) {
 				System.out.println("Unknown command \"" + s + "\"");
@@ -33,9 +43,11 @@ public class MedicalServer {
 			}
 		}
 
-		System.out.println("The follow settings are beeing used:");
-		System.out.println(settings);
-		System.out.println();
+		if (verbose) {
+			System.out.println("The follow settings are beeing used:");
+			System.out.println(settings);
+			System.out.println();
+		}
 		char[] password = settings.get("password").toCharArray();
 
 		int port = -1;
@@ -52,10 +64,11 @@ public class MedicalServer {
 		File truststore = new File(certFolder + "server_trust");
 
 		try {
-			new ServerModel(port, keystore, truststore, password, false);
+			new ServerModel(port, keystore, truststore, password, verbose);
 		} catch (KeyManagementException | UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException
 				| CertificateException | IOException e) {
-			System.out.println("Could not start server!");
+			System.out.println("\nCould not start server!");
+			System.out.println(e.getMessage());
 			System.exit(0);
 		}
 	}
