@@ -9,16 +9,20 @@ import java.util.Date;
 import java.util.Random;
 
 import medicalstuff.general.csv.CSV;
+import medicalstuff.server.model.data.user.User;
+import medicalstuff.server.model.data.user.UserList;
 
 public class JournalList {
 
 	private CSV csv;
 
 	private ArrayList<Journal> journals;
+	private UserList ul;
 
-	public JournalList() throws IOException {
+	public JournalList(UserList ul) throws IOException {
+		this.ul = ul;
+
 		csv = new CSV(new File("data/journal"));
-
 		journals = new ArrayList<>();
 
 		for (ArrayList<String> data : csv.getData())
@@ -43,10 +47,19 @@ public class JournalList {
 
 	}
 
-	public ArrayList<JournalSnippet> getJournals() {
+	public ArrayList<JournalSnippet> getJournals(User u) {
 		ArrayList<JournalSnippet> snippets = new ArrayList<>();
-		for (Journal j : journals)
-			snippets.add(new JournalSnippet(j.getPatient(), j.getId()));
+		for (Journal j : journals) {
+			JournalSnippet js = new JournalSnippet(j.getPatient(), j.getId());
+			if (u.getGroup() <= 1) {
+				User doctor = ul.getUser(j.getDoctor());
+				if (doctor.getDivision().equals(u.getDivision()))
+					snippets.add(js);
+			}else if (u.getGroup() == 2 && j.getNurse().equals(u.getSerial()))
+				snippets.add(js);
+			else if (u.getGroup() == 3 && j.getPatient().equals(u.getSerial()))
+				snippets.add(js);
+		}
 		return snippets;
 	}
 
@@ -67,7 +80,7 @@ public class JournalList {
 		if (size != 0) {
 			id = Integer.parseInt(csv.getData().get(size - 1).get(0));
 		}
-		id+=new Random().nextInt(20)+2;
+		id += new Random().nextInt(20) + 2;
 		return "" + id;
 	}
 

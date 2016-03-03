@@ -24,4 +24,13 @@ public class User {
 	public String getPersonalNumber() {
 		return data.get(1);
 	}
+	
+	public String getDivision() {
+		return data.get(4);
+	}
+	
+	@Override
+	public String toString() {
+		return getName() + " -> " + getSerial();
+	}
 }

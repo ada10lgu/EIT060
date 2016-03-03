@@ -1,3 +1,4 @@
+
 package medicalstuff.server.model;
 
 import java.io.File;
@@ -45,9 +46,9 @@ public class ServerModel implements ConnectionHandler {
 		System.out.println("loaded " + users.size() + " users");
 
 		System.out.print("Loading journals...\t\t");
-		journals = new JournalList();
+		journals = new JournalList(users);
 		System.out.println("loaded " + journals.size() + " journals");
-		
+
 		System.out.print("Loading journal entries...\t");
 		journalEntries = new JournalEntryList();
 		System.out.println("loaded " + journalEntries.size() + " journal entries");
@@ -75,8 +76,8 @@ public class ServerModel implements ConnectionHandler {
 		return users.getUser(serial);
 	}
 
-	public ArrayList<JournalSnippet> getJournals() {
-		ArrayList<JournalSnippet> snippets = journals.getJournals();
+	public ArrayList<JournalSnippet> getJournals(String[] user) {
+		ArrayList<JournalSnippet> snippets = journals.getJournals(users.getUser(user[0]));
 		for (JournalSnippet js : snippets)
 			js.setUser(users.getUser(js.getUser()).getName());
 		return snippets;
@@ -90,7 +91,7 @@ public class ServerModel implements ConnectionHandler {
 		}
 		return null;
 	}
-	
+
 	public ArrayList<JournalEntry> getJournalEntries(int journalId) {
 		return journalEntries.getEntries(journalId);
 	}
@@ -104,29 +105,29 @@ public class ServerModel implements ConnectionHandler {
 		logger.log(serial, "-1", "unknown user (" + info + ")", s.getInetAddress().toString());
 	}
 
-	public ArrayList<String[]> getUsers(int group) {
-		return users.getUsers(group);
+	public ArrayList<String[]> getUsers(int group, String[] user) {
+		String division = null;
+		if (user != null)
+			division = users.getUser(user[0]).getDivision();
+		return users.getUsers(group, division);
 	}
-	
+
 	public String getUserName(String userSerial) {
 		return users.getUser(userSerial).getName();
 	}
 
 	public boolean createJournal(String[] user, String patient, String doctor, String nurse) {
 		User u = getUser(doctor);
-		if (u.getGroup() != 1) {
-			// Only REAL doctors are allowed to create journals
+		if (u.getGroup() != 1)
 			return false;
-		}
-		
 		boolean b = journals.addJournal(patient, doctor, nurse);
 		logger.log(user[0], patient, "created journal", user[1]);
 		return b;
 	}
-	
+
 	public boolean addJournalEntry(String[] user, int journalId, String data) {
 		Journal j = journals.getJournal(journalId);
-		if(j.getNurse().equals(user[0]) || j.getDoctor().equals(user[0])) {
+		if (j.getNurse().equals(user[0]) || j.getDoctor().equals(user[0])) {
 			return journalEntries.addEntry(journalId, user[0], data);
 		}
 		return false;

@@ -44,10 +44,10 @@ public class UserList {
 		return users.size();
 	}
 
-	public ArrayList<String[]> getUsers(int group) {
+	public ArrayList<String[]> getUsers(int group,String division) {
 		ArrayList<String[]> data = new ArrayList<>();
 		for (User u : users) {
-			if (u.getGroup() == group) {
+			if (u.getGroup() == group && (division == null || division.equals(u.getDivision()))) {
 				String[] s = new String[2];
 				s[0] = u.getName();
 				s[1] = u.getSerial();

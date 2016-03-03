@@ -59,12 +59,12 @@ public class ConnectionModel implements MedicalModel {
 
 	@Override
 	public ArrayList<JournalSnippet> getJournals() {
-		return superModel.getJournals();
+		return superModel.getJournals(user);
 	}
 
 	@Override
 	public ArrayList<String[]> getPatients() {
-		return superModel.getUsers(3);
+		return superModel.getUsers(3,null);
 	}
 	
 	public String getUserName(String userSerial) {
@@ -87,7 +87,7 @@ public class ConnectionModel implements MedicalModel {
 
 	@Override
 	public ArrayList<String[]> getNurses() {
-		return superModel.getUsers(2);
+		return superModel.getUsers(2,user);
 	}
 
 	@Override
