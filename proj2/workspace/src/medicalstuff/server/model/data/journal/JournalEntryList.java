@@ -23,10 +23,10 @@ public class JournalEntryList {
 		}
 	}
 
-	public synchronized boolean addEntry(String journalId, String user, String entry) {
+	public synchronized boolean addEntry(int journalId, String user, String entry) {
 		ArrayList<String> data = new ArrayList<>();
 		data.add(getNewId());
-		data.add(journalId);
+		data.add("" + journalId);
 		data.add(user);
 		data.add(getDateTime());
 		data.add(entry);

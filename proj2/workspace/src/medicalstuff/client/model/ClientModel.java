@@ -20,6 +20,7 @@ import medicalstuff.general.connection.packets.data.StringPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.connection.packets.operands.ResponsePacket;
 import medicalstuff.general.medicalpackets.MedicalFactory;
+import medicalstuff.general.medicalpackets.packets.AddJournalEntryPacket;
 import medicalstuff.general.medicalpackets.packets.CreateJournalPacket;
 import medicalstuff.general.medicalpackets.packets.GetJournalPacket;
 import medicalstuff.general.medicalpackets.packets.GetNursesPacket;
@@ -27,6 +28,7 @@ import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
+import medicalstuff.server.model.data.journal.JournalEntry;
 
 public class ClientModel extends Observable {
 
@@ -186,5 +188,15 @@ public class ClientModel extends Observable {
 
 	public void setActiveJournal(int activeJournal) {
 		this.activeJournal = activeJournal;
+	}
+	
+	public boolean addJournalEntry(int journalId, String data) {
+		byte id = connection.send(new AddJournalEntryPacket(journalId, data));
+		
+		OperatorPacket op = connection.waitForReply(id);
+		ResponsePacket rp = (ResponsePacket) op;
+		BooleanPacket bp = (BooleanPacket) rp.getPacket();
+		
+		return bp.toBoolean();
 	}
 }

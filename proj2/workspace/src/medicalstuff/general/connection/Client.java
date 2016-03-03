@@ -113,7 +113,7 @@ public class Client {
 					} else {
 						SuperPacket response = sp.getAck();
 						if (verbose) {
-							System.out.println("incomming:\t" + sp);
+							System.out.println("incoming:\t" + sp);
 							System.out.println("response:\t" + response);
 						}
 						conn.send(response.getData());

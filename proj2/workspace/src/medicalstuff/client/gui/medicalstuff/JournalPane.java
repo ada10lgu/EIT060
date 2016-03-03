@@ -5,8 +5,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import medicalstuff.client.gui.medicalstuff.journal.AddJournalEntryButton;
 import medicalstuff.client.gui.medicalstuff.journal.DisplayJournal;
 import medicalstuff.client.gui.medicalstuff.journal.FetchJournalButton;
 import medicalstuff.client.model.ClientModel;
@@ -44,6 +46,20 @@ public class JournalPane extends JPanel {
 		removeAll();
 		setLayout(new BorderLayout());
 		add(display,BorderLayout.CENTER);
+		add(new AddJournalEntryButton(this), BorderLayout.SOUTH);
 		updateUI();
+	}
+	
+	public void addJournalEntry() {
+		String data = JOptionPane.showInputDialog("Enter journal entry:");
+		if (data == null || "".equals(data)) {
+			return;
+		} 
+		boolean result = model.addJournalEntry(activeJournal, data);
+		if(result) {
+			System.out.println("Success!");
+		} else {
+			updateUI();
+		}
 	}
 }

@@ -94,4 +94,9 @@ public class ConnectionModel implements MedicalModel {
 	public Journal getJournal(int id) {
 		return superModel.getJournal(user, id);
 	}
+
+	@Override
+	public boolean addJournalEntry(int journalId, String data) {
+		return superModel.addJournalEntry(user, journalId, data);
+	}
 }

@@ -28,4 +28,6 @@ public interface MedicalModel {
 	 
 	public boolean createJournal(String patient, String nurse);
 	
+	public boolean addJournalEntry(int journalId, String data);
+	
 }
