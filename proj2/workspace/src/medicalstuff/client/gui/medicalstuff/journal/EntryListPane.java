@@ -38,7 +38,7 @@ public class EntryListPane extends JPanel {
 
 	private class EntryPane extends JPanel {
 		public EntryPane(JournalEntry je) {
-			setBorder(BorderFactory.createTitledBorder(je.getTimeStamp()));
+			setBorder(BorderFactory.createTitledBorder(je.getTimeStamp() + " by " + je.getUserName()));
 			add(new JLabel(je.getEntry()));
 		}
 	}
