@@ -7,7 +7,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import medicalstuff.client.gui.medicalstuff.JournalPane;
 import medicalstuff.client.model.ClientModel;
 import medicalstuff.client.model.Journal;
 import medicalstuff.client.model.JournalEntry;
@@ -18,10 +17,10 @@ public class EntryListPane extends JPanel {
 	private AddJournalEntryButton button;
 	private ClientModel model;
 
-	public EntryListPane(ClientModel model, JournalPane jp) {
+	public EntryListPane(ClientModel model) {
 		this.model = model;
 		setLayout(new GridBagLayout());
-		button = new AddJournalEntryButton(jp);
+		button = new AddJournalEntryButton(model);
 	}
 
 	public void setJournal(Journal j) {
@@ -29,7 +28,7 @@ public class EntryListPane extends JPanel {
 
 		GridBagConstraints c = new GridBagConstraints();
 
-		c.anchor = GridBagConstraints.LINE_START;
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 10;
 		c.gridx = 0;
@@ -39,7 +38,6 @@ public class EntryListPane extends JPanel {
 			add(button, c);
 			c.gridy++;
 		}
-
 		for (JournalEntry je : j.getJournalEntries()) {
 			add(new EntryPane(je), c);
 			c.gridy++;

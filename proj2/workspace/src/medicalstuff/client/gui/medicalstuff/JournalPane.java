@@ -51,17 +51,4 @@ public class JournalPane extends JPanel {
 		updateUI();
 	}
 
-	public void addJournalEntry() {
-		JTextArea txtEntry = new JTextArea();
-		JScrollPane scrollPane = new JScrollPane(txtEntry, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setPreferredSize(new Dimension(600, 400));
-		int result = JOptionPane.showConfirmDialog(null, scrollPane, "Enter journal entry:",
-				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-		if (result == JOptionPane.OK_OPTION) {
-			boolean b = model.addJournalEntry(activeJournal, txtEntry.getText());
-			if (!b)
-				System.out.println("DEBUG: Failed");
-		}
-	}
 }

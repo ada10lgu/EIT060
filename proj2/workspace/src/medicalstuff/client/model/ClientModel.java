@@ -197,8 +197,8 @@ public class ClientModel extends Observable {
 		this.activeJournal = activeJournal;
 	}
 
-	public boolean addJournalEntry(int journalId, String data) {
-		byte id = connection.send(new AddJournalEntryPacket(journalId, data));
+	public boolean addJournalEntry(String data) {
+		byte id = connection.send(new AddJournalEntryPacket(activeJournal, data));
 
 		OperatorPacket op = connection.waitForReply(id);
 		ResponsePacket rp = (ResponsePacket) op;
