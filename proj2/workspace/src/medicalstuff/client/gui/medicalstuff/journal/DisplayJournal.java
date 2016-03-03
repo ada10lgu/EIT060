@@ -13,21 +13,25 @@ public class DisplayJournal extends JPanel {
 
 	private ClientModel model;
 	private JournalHeaderPane header;
+	private EntryListPane text;
 	private JournalPane jp;
 
 	public DisplayJournal(ClientModel model, JournalPane jp) {
 		this.model = model;
 		this.jp = jp;
 		header = new JournalHeaderPane();
+		text = new EntryListPane();
 		
 		setLayout(new BorderLayout());
 		add(header,BorderLayout.NORTH);
+		add(text,BorderLayout.CENTER);
 
 		new JournalUpdater().start();
 	}
 
 	private synchronized void update(Journal j) {
 		header.setJournal(j);
+		text.setJournal(j);
 		jp.setJournalEntries(j.getJournalEntries());
 		System.out.println("Update");
 	}

@@ -85,7 +85,24 @@ public class ServerModel implements ConnectionHandler {
 
 	public Journal getJournal(String[] user, int id) {
 		Journal j = journals.getJournal(id);
-		if (user[0].equals(j.getDoctor()) || user[0].equals(j.getNurse()) || user[0].equals(j.getPatient())) {
+
+		boolean allowed = false;
+		if (user[0].equals(j.getDoctor()))
+			allowed = true;
+		else if (user[0].equals(j.getNurse()))
+			allowed = true;
+		else if (user[0].equals(j.getPatient()))
+			allowed = true;
+		else if (users.getUser(user[0]).getGroup() == 0)
+			allowed = true;
+		else {
+			User u = users.getUser(user[0]);
+			User d = users.getUser(j.getDoctor());
+			if (u.getGroup() == 1 && u.getDivision().equals(d.getDivision()))
+				allowed = true;
+		}
+
+		if (allowed) {
 			logger.log(user[0], j.getPatient(), "requested journal #" + j.getId(), user[1]);
 			return j;
 		}
