@@ -20,6 +20,7 @@ public class MedicalServer {
 		settings.put("certFolder", "certs/");
 		settings.put("password", "password");
 		settings.put("port", "12345");
+		settings.put("dataFolder","data/");
 
 		for (int i = 0; i < args.length; i++) {
 			String s = args[i];
@@ -59,12 +60,12 @@ public class MedicalServer {
 		}
 
 		String certFolder = settings.get("certFolder");
-
+		String dataFolder = settings.get("dataFolder");
 		File keystore = new File(certFolder + "server_key");
 		File truststore = new File(certFolder + "server_trust");
 
 		try {
-			new ServerModel(port, keystore, truststore, password, verbose);
+			new ServerModel(port, keystore, truststore, password, dataFolder, verbose);
 		} catch (KeyManagementException | UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException
 				| CertificateException | IOException e) {
 			System.out.println("\nCould not start server!");

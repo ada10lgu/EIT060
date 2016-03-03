@@ -33,24 +33,30 @@ public class ServerModel implements ConnectionHandler {
 	private JournalEntryList journalEntries;
 	private Logger logger;
 
-	public ServerModel(int port, File keystore, File truststore, char[] password, boolean verbose)
+	public ServerModel(int port, File keystore, File truststore, char[] password, String dataFolder, boolean verbose)
 			throws KeyManagementException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
 			CertificateException, IOException {
 
+		File folder = new File(dataFolder);
+		if (!folder.isDirectory()) {
+			System.out.println("No data folder found, creating it");
+			folder.mkdir();
+		}
+
 		System.out.print("Loading logfile...\t\t");
-		logger = new Logger();
+		logger = new Logger(dataFolder);
 		System.out.println("done");
 
 		System.out.print("Loading users...\t\t");
-		users = new UserList();
+		users = new UserList(dataFolder);
 		System.out.println("loaded " + users.size() + " users");
 
 		System.out.print("Loading journals...\t\t");
-		journals = new JournalList(users);
+		journals = new JournalList(dataFolder,users);
 		System.out.println("loaded " + journals.size() + " journals");
 
 		System.out.print("Loading journal entries...\t");
-		journalEntries = new JournalEntryList();
+		journalEntries = new JournalEntryList(dataFolder);
 		System.out.println("loaded " + journalEntries.size() + " journal entries");
 
 		try {

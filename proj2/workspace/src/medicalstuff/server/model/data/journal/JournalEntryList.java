@@ -13,8 +13,8 @@ public class JournalEntryList {
 	private CSV csv;
 	private ArrayList<JournalEntry> journalEntries;
 
-	public JournalEntryList() throws IOException {
-		csv = new CSV(new File("data/journalentries"));
+	public JournalEntryList(String folder) throws IOException {
+		csv = new CSV(new File(folder +"journalentries"));
 
 		journalEntries = new ArrayList<>();
 

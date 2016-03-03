@@ -11,8 +11,8 @@ public class UserList {
 	private CSV csv;
 	private ArrayList<User> users;
 
-	public UserList() throws IOException {
-		csv = new CSV(new File("data/users"));
+	public UserList(String folder) throws IOException {
+		csv = new CSV(new File(folder +"users"));
 		users = new ArrayList<>();
 
 		for (ArrayList<String> data : csv.getData()) {

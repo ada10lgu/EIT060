@@ -19,10 +19,10 @@ public class JournalList {
 	private ArrayList<Journal> journals;
 	private UserList ul;
 
-	public JournalList(UserList ul) throws IOException {
+	public JournalList(String folder,UserList ul) throws IOException {
 		this.ul = ul;
 
-		csv = new CSV(new File("data/journal"));
+		csv = new CSV(new File(folder + "journal"));
 		journals = new ArrayList<>();
 
 		for (ArrayList<String> data : csv.getData())

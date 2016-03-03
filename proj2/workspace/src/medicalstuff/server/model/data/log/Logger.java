@@ -13,8 +13,8 @@ public class Logger {
 
 	private CSV csv;
 	
-	public Logger() throws IOException{
-		csv = new CSV(new File("data/logfile"));
+	public Logger(String folder) throws IOException {
+		csv = new CSV(new File(folder +"logfile"));
 
 	}
 	public synchronized void log(String user, String patient, String action,String ip){
