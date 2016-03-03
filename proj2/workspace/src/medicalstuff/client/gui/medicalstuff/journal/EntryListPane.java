@@ -7,14 +7,21 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import medicalstuff.client.gui.medicalstuff.JournalPane;
+import medicalstuff.client.model.ClientModel;
 import medicalstuff.client.model.Journal;
 import medicalstuff.client.model.JournalEntry;
 
 @SuppressWarnings("serial")
 public class EntryListPane extends JPanel {
 
-	public EntryListPane() {
+	private AddJournalEntryButton button;
+	private ClientModel model;
+
+	public EntryListPane(ClientModel model, JournalPane jp) {
+		this.model = model;
 		setLayout(new GridBagLayout());
+		button = new AddJournalEntryButton(jp);
 	}
 
 	public void setJournal(Journal j) {
@@ -27,6 +34,11 @@ public class EntryListPane extends JPanel {
 		c.weightx = 10;
 		c.gridx = 0;
 		c.gridy = 0;
+
+		if (j.doctor.equals(model.getName()) || j.nurse.equals(model.getName())) {
+			add(button, c);
+			c.gridy++;
+		}
 
 		for (JournalEntry je : j.getJournalEntries()) {
 			add(new EntryPane(je), c);

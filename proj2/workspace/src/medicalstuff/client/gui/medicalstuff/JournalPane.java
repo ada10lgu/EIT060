@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import medicalstuff.client.gui.medicalstuff.journal.AddJournalEntryButton;
 import medicalstuff.client.gui.medicalstuff.journal.DisplayJournal;
 import medicalstuff.client.gui.medicalstuff.journal.FetchJournalButton;
 import medicalstuff.client.model.ClientModel;
@@ -49,7 +48,6 @@ public class JournalPane extends JPanel {
 		removeAll();
 		setLayout(new BorderLayout());
 		add(display, BorderLayout.CENTER);
-		add(new AddJournalEntryButton(this), BorderLayout.WEST);
 		updateUI();
 	}
 

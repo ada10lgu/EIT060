@@ -18,7 +18,7 @@ public class DisplayJournal extends JPanel {
 	public DisplayJournal(ClientModel model, JournalPane jp) {
 		this.model = model;
 		header = new JournalHeaderPane();
-		text = new EntryListPane();
+		text = new EntryListPane(model, jp);
 		
 		setLayout(new BorderLayout());
 		add(header,BorderLayout.NORTH);
