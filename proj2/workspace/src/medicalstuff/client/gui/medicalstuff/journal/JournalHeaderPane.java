@@ -79,12 +79,21 @@ public class JournalHeaderPane extends JPanel {
 	}
 
 	public void setJournal(Journal j) {
-		doctor.setText(j.doctor);
-		nurse.setText(j.nurse);
-		patient.setText(j.patient);
-		pnr.setText(j.pnr);
-		created.setText(j.created);
-		id.setText("" + j.id);
+		if (j == null) {
+			doctor.setText("");
+			nurse.setText("");
+			patient.setText("");
+			pnr.setText("");
+			created.setText("");
+			id.setText("");
+		} else {
+			doctor.setText(j.doctor);
+			nurse.setText(j.nurse);
+			patient.setText(j.patient);
+			pnr.setText(j.pnr);
+			created.setText(j.created);
+			id.setText("" + j.id);
+		}
 		updateUI();
 	}
 }

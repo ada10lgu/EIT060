@@ -30,6 +30,7 @@ public class Journal {
 		sb.append(doctor).append("-");
 		sb.append(nurse).append("-");
 		sb.append(created).append("-");
+		sb.append(journalEntries);
 
 		return sb.toString().hashCode();
 	}

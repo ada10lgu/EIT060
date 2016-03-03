@@ -1,15 +1,11 @@
 package medicalstuff.client.gui.medicalstuff;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import medicalstuff.client.gui.medicalstuff.journal.DisplayJournal;
 import medicalstuff.client.gui.medicalstuff.journal.FetchJournalButton;

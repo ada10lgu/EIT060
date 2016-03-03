@@ -30,7 +30,6 @@ public class DisplayJournal extends JPanel {
 	private synchronized void update(Journal j) {
 		header.setJournal(j);
 		text.setJournal(j);
-		System.out.println("Update");
 	}
 
 	private class JournalUpdater extends Thread {

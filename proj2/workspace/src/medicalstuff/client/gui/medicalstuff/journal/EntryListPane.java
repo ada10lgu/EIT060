@@ -15,16 +15,23 @@ import medicalstuff.client.model.JournalEntry;
 public class EntryListPane extends JPanel {
 
 	private AddJournalEntryButton button;
+	private DeleteJournalButton remove;
 	private ClientModel model;
 
 	public EntryListPane(ClientModel model) {
 		this.model = model;
 		setLayout(new GridBagLayout());
 		button = new AddJournalEntryButton(model);
+		remove = new DeleteJournalButton(model);
 	}
 
 	public void setJournal(Journal j) {
 		removeAll();
+
+		if (j == null) {
+			updateUI();
+			return;
+		}
 
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -36,6 +43,9 @@ public class EntryListPane extends JPanel {
 
 		if (j.doctor.equals(model.getName()) || j.nurse.equals(model.getName())) {
 			add(button, c);
+			c.gridy++;
+		} else if (model.getGroup() == 0) {
+			add(remove, c);
 			c.gridy++;
 		}
 		for (JournalEntry je : j.getJournalEntries()) {

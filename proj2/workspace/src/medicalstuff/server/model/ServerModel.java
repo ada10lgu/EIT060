@@ -85,7 +85,6 @@ public class ServerModel implements ConnectionHandler {
 
 	public Journal getJournal(String[] user, int id) {
 		Journal j = journals.getJournal(id);
-
 		boolean allowed = false;
 		if (user[0].equals(j.getDoctor()))
 			allowed = true;
@@ -148,5 +147,15 @@ public class ServerModel implements ConnectionHandler {
 			return journalEntries.addEntry(journalId, user[0], data);
 		}
 		return false;
+	}
+
+	public void removeJournal(String[] user, int journalId) {
+		if (users.getUser(user[0]).getGroup() != 0)
+			return;
+		journals.remove(journalId);
+		journalEntries.remove(journalId);
+
+		logger.log(user[0], "", "removed journal #" + journalId, user[1]);
+
 	}
 }

@@ -30,4 +30,5 @@ public interface MedicalModel {
 	
 	public boolean addJournalEntry(int journalId, String data);
 	
+	public void remove(int journalId);
 }

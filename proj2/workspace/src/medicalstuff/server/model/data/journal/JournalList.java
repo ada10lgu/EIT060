@@ -51,11 +51,13 @@ public class JournalList {
 		ArrayList<JournalSnippet> snippets = new ArrayList<>();
 		for (Journal j : journals) {
 			JournalSnippet js = new JournalSnippet(j.getPatient(), j.getId());
-			if (u.getGroup() <= 1) {
+			if (u.getGroup() == 0) {
+				snippets.add(js);
+			} else if (u.getGroup() == 1) {
 				User doctor = ul.getUser(j.getDoctor());
 				if (doctor.getDivision().equals(u.getDivision()))
 					snippets.add(js);
-			}else if (u.getGroup() == 2 && j.getNurse().equals(u.getSerial()))
+			} else if (u.getGroup() == 2 && j.getNurse().equals(u.getSerial()))
 				snippets.add(js);
 			else if (u.getGroup() == 3 && j.getPatient().equals(u.getSerial()))
 				snippets.add(js);
@@ -89,5 +91,20 @@ public class JournalList {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		return dateFormat.format(date);
+	}
+
+	public void remove(int journalId) {
+		for (int i = 0; i < journals.size(); i++) {
+			Journal j = journals.get(i);
+			if (j.getId() == journalId) {
+				journals.remove(j);
+				csv.getData().remove(j.getData());
+				try {
+					csv.save();
+				} catch (IOException e) {
+					System.err.println("Error removing journal");
+				}
+			}
+		}
 	}
 }

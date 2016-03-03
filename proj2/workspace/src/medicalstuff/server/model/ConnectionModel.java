@@ -99,4 +99,10 @@ public class ConnectionModel implements MedicalModel {
 	public boolean addJournalEntry(int journalId, String data) {
 		return superModel.addJournalEntry(user, journalId, data);
 	}
+
+	@Override
+	public void remove(int journalId) {
+		superModel.removeJournal(user,journalId);
+		
+	}
 }

@@ -29,4 +29,8 @@ public class JournalEntry {
 	public String getData() {
 		return data.get(4);
 	}
+	
+	ArrayList<String> getCSVData() {
+		return data;
+	}
 }

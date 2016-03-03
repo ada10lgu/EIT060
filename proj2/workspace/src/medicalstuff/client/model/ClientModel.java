@@ -27,6 +27,7 @@ import medicalstuff.general.medicalpackets.packets.GetNursesPacket;
 import medicalstuff.general.medicalpackets.packets.GetPatientsPacket;
 import medicalstuff.general.medicalpackets.packets.JournalListPacket;
 import medicalstuff.general.medicalpackets.packets.LoginPacket;
+import medicalstuff.general.medicalpackets.packets.RemoveJournalPacket;
 import medicalstuff.general.medicalpackets.packets.UserPacket;
 
 
@@ -205,5 +206,13 @@ public class ClientModel extends Observable {
 		BooleanPacket bp = (BooleanPacket) rp.getPacket();
 
 		return bp.toBoolean();
+	}
+
+	public void removeJournal() {
+		int temp = activeJournal;
+		activeJournal = -1;
+		RemoveJournalPacket rjp = new RemoveJournalPacket(temp);
+		connection.sendNoResponse(rjp);
+		
 	}
 }

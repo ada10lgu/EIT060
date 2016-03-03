@@ -1,37 +1,47 @@
 package medicalstuff.general.medicalpackets.packets;
 
+import static medicalstuff.general.medicalpackets.MedicalFactory.REMOVE_JOURNAL_PACKET;
+
 import medicalstuff.general.connection.packets.Packet;
+import medicalstuff.general.connection.packets.data.IntPacket;
+import medicalstuff.general.connection.packets.operands.NullPacket;
 import medicalstuff.general.connection.packets.operands.OperatorPacket;
 import medicalstuff.general.medicalpackets.MedicalModel;
 
+
 public class RemoveJournalPacket extends OperatorPacket {
 
+	private MedicalModel model;
+	private IntPacket journal;
+	
+	public RemoveJournalPacket(int journal) {
+		this.journal = new IntPacket(journal);
+	}
+	
 	public RemoveJournalPacket(byte[] data, Packet[] packets, MedicalModel model) {
-		// TODO Auto-generated constructor stub
+		journal = (IntPacket) packets[0];
+		this.model = model;
 	}
 
 	@Override
 	public OperatorPacket perform() {
-		// TODO Auto-generated method stub
-		return null;
+		model.remove(journal.toInt());
+		return new NullPacket();
 	}
 
 	@Override
 	protected byte[] getLoad() {
-		// TODO Auto-generated method stub
-		return null;
+		return new byte[0];
 	}
 
 	@Override
 	protected Packet[] getPackages() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Packet[] {journal};
 	}
 
 	@Override
 	protected byte getType() {
-		// TODO Auto-generated method stub
-		return 0;
+		return REMOVE_JOURNAL_PACKET;
 	}
 
 }

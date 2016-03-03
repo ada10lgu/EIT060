@@ -28,9 +28,13 @@ public class Journal {
 	public String getDate() {
 		return data.get(4);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Patient:" + getPatient() + " Doctor:" + getDoctor() + " Nurse:" + getNurse();
+	}
+
+	ArrayList<String> getData() {
+		return data;
 	}
 }

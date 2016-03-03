@@ -70,4 +70,25 @@ public class JournalEntryList {
 		}
 		return temp;
 	}
+
+	public void remove(int journalId) {
+		ArrayList<JournalEntry> toRemove = new ArrayList<>();
+
+		for (JournalEntry je : journalEntries) {
+			if (je.getJournalId() == journalId)
+				toRemove.add(je);
+		}
+		
+		for (JournalEntry je : toRemove) {
+			journalEntries.remove(je);
+			csv.getData().remove(je.getCSVData());
+		}
+		
+		try {
+			csv.save();
+		} catch (IOException e) {
+			System.err.println("Could not save journal entries");
+		}
+		
+	}
 }
